@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/nonrentalinfo"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/textmagleft20"
+        android:layout_marginRight="@dimen/textmagleft20"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:background="@color/blue" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="非出租房相关信息"
+            android:textColor="@color/blue"
+            android:textSize="25dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/textmagleft10"
+            android:layout_marginTop="@dimen/textmagtop"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registername"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/et_registername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/realregistername"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/et_realregistername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/opentime"
+                    android:textSize="@dimen/textSize" />
+
+                <Button
+                    android:text="@string/pleaseselector"
+                    android:id="@+id/btn_opentime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/businessscope" />
+
+                <EditText
+                    android:id="@+id/et_businessscope"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wifipwd" />
+
+                <EditText
+                    android:id="@+id/et_wifipwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numberofrelperson" />
+
+                <EditText
+                    android:id="@+id/et_numberofrelperson"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/businesslicensenumber" />
+
+                <EditText
+                    android:id="@+id/et_businesslicensenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hygienelicensenumber" />
+
+                <EditText
+                    android:id="@+id/et_hygienelicensenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/taxregistrationcertificatenumber" />
+
+                <EditText
+                    android:id="@+id/et_taxregistrationcertificatenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal">
+            <TextView
+                android:textSize="@dimen/textSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placetype"
+                />
+                <Button
+                    android:id="@+id/btn_placetype"
+                    android:layout_marginLeft="@dimen/textmagleft20"
+                    android:textSize="@dimen/textSize"
+                    android:text="@string/pleaseselector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_serviceplacetype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/textmagtop"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:textSize="@dimen/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/serviceplacetype"
+                    />
+                <Button
+                    android:id="@+id/btn_serviceplacetype"
+                    android:layout_marginLeft="@dimen/textmagleft20"
+                    android:textSize="@dimen/textSize"
+                    android:text="@string/pleaseselector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

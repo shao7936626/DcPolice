@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">德城公安</string>
+    <string name="confirm">确定</string>
+    <string name="rememberPassword">记住密码</string>
+    <string name="username">姓名：</string>
+    <string name="personName">姓名：</string>
+    <string name="policeNumber">警号：</string>
+    <string name="sex">性别：</string>
+    <string name="sexSelector">请选择性别</string>
+    <string name="bornDate">出生日期：</string>
+    <string name="dateSelector">请选择日期</string>
+    <string name="entrysenseSelector">请选择录入场景</string>
+    <string name="personTypeSelector">请选择人员类型</string>
+    <string name="personnelEntryInfo">人员信息录入</string>
+    <string name="personnelSearchInfo">历史信息查询</string>
+    <string name="QQ">QQ：</string>
+    <string name="weiChat">微信号：</string>
+    <string name="IdCard">身份证号：</string>
+    <string name="phoneNumber">手机号：</string>
+    <string name="registeredResidence">户籍详细地址：</string>
+    <string name="otherInfo">其他身份信息：</string>
+    <string name="currentResidence">现住地详址：</string>
+    <string name="bankCard">银行卡信息：</string>
+    <string name="carNumber">车牌号码：</string>
+    <string name="facephoto">头像照：</string>
+    <string name="bodyphoto">全身照：</string>
+    <string name="entrySense">录入场景：</string>
+    <string name="personType">人员分类：</string>
+    <string name="pleaseselector">请选择</string>
+    <string name="errorpersoninfo">人员信息不全</string>
+    <string name="remark">备注：</string>
+    <string name="entrytime">上传时间：</string>
+    <string name="checktime">判断时间：</string>
+    <string name="can_not_find_version_name">找不到版本号</string>
+    <string name="copyleft">Copyright @2012-2016 CloudSense Inc. All Rights Reserved</string>
+    <string name="rentalAndfloating">出租房屋和流动人口登记</string>
+    <string name="checkpersoninfo">判断</string>
+    <string name="rentalhousing">地点场所登记</string>
+    <string name="floatingpopulation">流动人口登记</string>
+
+
+    <string name="isRentalHousing">是否为出租房:</string>
+    <string name="rentaladdress">场所地址（详细地址,门牌号）:</string>
+    <string name="belongplace">所属派出所或社区:</string>
+    <string name="policename">社区民警姓名:</string>
+    <string name="registername">注册名称:</string>
+    <string name="realregistername">实际经营名称:</string>
+    <string name="opentime">开业时间:</string>
+    <string name="wifipwd">wifi密码:</string>
+    <string name="numberofrelperson">从业人数:</string>
+    <string name="businesslicensenumber">营业执照号码:</string>
+    <string name="hygienelicensenumber">卫生许可证号码:</string>
+    <string name="taxregistrationcertificatenumber">税务登记证:</string>
+    <string name="placetype">场所性质:</string>
+    <string name="entertainmentplacetype">娱乐场所:</string>
+    <string name="serviceplacetype">服务场所:</string>
+    <string name="specialplacetype">特种行业:</string>
+    <string name="ninesmallplacetype">九小场所:</string>
+    <string name="placearea">经营面积:</string>
+    <string name="numberoffloor">层数:</string>
+    <string name="numberofchannelport">通道口数:</string>
+    <string name="numberofroom">包间数量:</string>
+    <string name="numberofholdperson">容纳人数:</string>
+    <string name="certificateofqualification">合格证号:</string>
+    <string name="firefacilities">是否配备以下消防设施（灭火器 应急灯 消防拴 其他）多选:</string>
+    <string name="chargepersonname">保卫负责人姓名:</string>
+    <string name="chargepersonphone">保卫负责人电话:</string>
+    <string name="numberofstaffperson">保安人数:</string>
+    <string name="numberofexternalmonitor">外部监控数量:</string>
+    <string name="numberofinsidemonitor">内部监控数量:</string>
+    <string name="protectcondition">物防情况:</string>
+    <string name="businessscope">经营范围:</string>
+
+    <string name="m2">平方米</string>
+
+
+    <string name="rtype">相关人员类别:</string>
+    <string name="rname">姓名:</string>
+    <string name="nation">民族:</string>
+    <string name="workdunit">工作单位名称:</string>
+    <string name="workduaddress">工作单位地址:</string>
+
+    <string name="ispermit">是否办理居住证:</string>
+
+
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="WheelItemTextSize">24sp</dimen>
+    <dimen name="WheelItemSpace">12dp</dimen>
+    <dimen name="WheelIndicatorSize">2dp</dimen>
+    <dimen name="WheelMargins">8dp</dimen>
+    <dimen name="actionBarSize">32dip</dimen>
+    <dimen name="personinfoSize">40dip</dimen>
+    <dimen name="personinfoleftSize">20dip</dimen>
+    <dimen name="personinfotopSize">5dip</dimen>
+    <dimen name="photosize">100dip</dimen>
+    <dimen name="textsize">14dip</dimen>
+    <dimen name="textmagtop">5dip</dimen>
+    <dimen name="textmagtop10">10dip</dimen>
+    <dimen name="textmagtop20">20dip</dimen>
+    <dimen name="textmagleft20">20dip</dimen>
+    <dimen name="textmagleft10">10dip</dimen>
+    <dimen name="textSize">20dp</dimen>
+</resources>

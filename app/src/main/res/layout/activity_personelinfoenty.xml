@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/workbench_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/util_head_view" />
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/facephoto"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_facephoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/pleaseselector"
+                    android:textSize="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/facephoto_recycler_view"
+                    android:layout_width="@dimen/photosize"
+                    android:layout_height="@dimen/photosize"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/bodyphoto"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_bodyphoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/pleaseselector"
+                    android:textSize="20dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/bodyphoto_recycler_view"
+                    android:layout_width="@dimen/photosize"
+                    android:layout_height="@dimen/photosize"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/personName"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <EditText
+                    android:id="@+id/et_person_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/IdCard"
+                    android:textColor="@color/black"
+
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <EditText
+                    android:id="@+id/et_person_idcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textsize" />
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="@dimen/personinfoSize"
+            android:layout_weight="1"
+            android:background="@drawable/infobar"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/checkpersoninfo"
+                />
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/sex"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <Button
+                    android:id="@+id/btn_sex"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:text="@string/pleaseselector"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/bornDate"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_borndate"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:text="请选择"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/QQ"
+                    android:textColor="@color/red"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/et_person_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:ellipsize="end"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/weiChat"
+                    android:textColor="@color/red"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/et_person_wechat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/phoneNumber"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <EditText
+                    android:id="@+id/et_person_phonenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+
+
+                    android:inputType="number"
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/personinfoleftSize"
+                        android:text="@string/registeredResidence"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_person_registerres"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+
+
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/personinfoleftSize"
+                        android:text="@string/otherInfo"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_person_otherinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+
+
+                    android:textSize="@dimen/textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/personinfoleftSize"
+                        android:text="@string/currentResidence"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_person_currentresidence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:textSize="@dimen/textsize"
+
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/bankCard"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/et_person_bankcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:inputType="number"
+                    android:textSize="@dimen/textsize"
+
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/carNumber"
+                    android:textColor="@color/red"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/et_person_carnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/personinfotopSize"
+                    android:textSize="@dimen/textsize"
+
+
+                    />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/entrySense"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_person_entrySense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:text="@string/pleaseselector"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:text="@string/personType"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_person_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:text="@string/pleaseselector"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="保存信息"
+                android:textColor="#0057F4" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
