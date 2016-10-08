@@ -38,6 +38,7 @@ import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
 import cn.onecloudtech.sl.dcpolice.model.Locate;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
+import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
@@ -121,6 +122,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
     private Map<String, RequestBody> map = new HashMap<>();
     private Integer islethouse = 0;
+    private ProgressDialogHandler mProgressDialogHandler;
 
     @Override
     public int getLayoutId() {
@@ -132,7 +134,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
         tvHead.setText("地点场所登记");
         sbIsrental.setOnCheckedChangeListener((buttonView, isChecked) -> {
             islethouse = isChecked ? 1 : 0;
-            if (isChecked == true) {
+            if (isChecked) {
                 preventioninfo.setVisibility(View.GONE);
                 firefighting.setVisibility(View.GONE);
                 nonrentalinfo.setVisibility(View.GONE);
@@ -181,12 +183,15 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
     @Override
     public void showProgressDialog() {
-
+        mProgressDialogHandler = new ProgressDialogHandler(this, null, false);
+        mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
     }
 
     @Override
     public void dissmissProgressDialog() {
-
+        mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
+        mProgressDialogHandler = null;
+        showMsg("上传失败！");
     }
 
     @Override
@@ -203,7 +208,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                 break;
             case R.id.btn_serviceplacetype:
                 for (int i = 0; i < C.placetypeList.length - 1; i++) {
-                    if (btnPlacetype.getText().toString().equals(C.PLACETYPE.get(i).toString()))
+                    if (btnPlacetype.getText().toString().equals(C.PLACETYPE.get(i)))
                         showDialog(i);
                 }
                 break;
@@ -237,7 +242,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
         map.put("belongplace", setRequestBody(etBelongplace));
         map.put("policename", setRequestBody(etPolicename));
         map.put("registername", setRequestBody(etRegistername));
-        map.put("realregistername",setRequestBody(etRealregistername));
+        map.put("realregistername", setRequestBody(etRealregistername));
         map.put("opentime", setRequestBody(btnOpentime));
         map.put("wifipwd", setRequestBody(etWifipwd));
         map.put("numberofrelperson", setRequestBody(etNumberofrelperson));
@@ -273,7 +278,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
         map.put("protectcondition", setRequestBody(btnProtectcondition));
         map.put("businessscope", setRequestBody(etBusinessscope));
 
-
+        showProgressDialog();
         mPresenter.uploadRentalHosuingInfo(map);
 
     }
@@ -545,7 +550,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String selectedStr = "";
                         for (int i = 0; i < selected.length; i++) {
-                            if (selected[i] == true) {
+                            if (selected[i]) {
                                 selectedStr = selectedStr + "," + list[i];
                             }
                             mButton.setText(selectedStr);

@@ -30,6 +30,7 @@ import cn.onecloudtech.sl.dcpolice.model.Person;
 import cn.onecloudtech.sl.dcpolice.model.UpdateData;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
 import cn.onecloudtech.sl.dcpolice.model.User;
+import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.subscribers.ProgressSubscriber;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
@@ -84,6 +85,8 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     private Integer ispermit = 0;
 
     private SubscriberOnNextListener getUploadFloatingInfoOnNext;
+    private ProgressDialogHandler mProgressDialogHandler;
+
 
     @Override
     public int getLayoutId() {
@@ -136,12 +139,15 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
     @Override
     public void showProgressDialog() {
-
+        mProgressDialogHandler = new ProgressDialogHandler(this, null, false);
+        mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
     }
 
     @Override
     public void dissmissProgressDialog() {
-
+        mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
+        mProgressDialogHandler = null;
+        showMsg("上传失败！");
     }
 
     @Override
@@ -191,7 +197,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("ispermit", setRequestBody(ispermit));
         map.put("belongplace", setRequestBody(etRpersonBelongplace));
         map.put("remark", setRequestBody(etRpersonRemark));
-
+        showProgressDialog();
         mPresenter.uploadFloatingPopulation(map);
 
 
