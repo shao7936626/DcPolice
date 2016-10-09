@@ -30,6 +30,7 @@
 
         </LinearLayout>
 
+        <include  layout="@layout/util_floatingpopulation_property" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +64,46 @@
                 />
             <EditText
                 android:id="@+id/et_rphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:text="@string/carNumber"
+                />
+            <EditText
+                android:id="@+id/et_rplatenumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:text="@string/postion"
+                />
+            <EditText
+                android:id="@+id/et_rpostion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize"

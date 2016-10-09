@@ -40,6 +40,12 @@ public class Relperson {
 
     private String remark;//备注
 
+    private String propertyandequipment;//资产
+
+    private String position; //职务
+
+    private String platenumber;//车牌号码
+
 //    public Integer getId() {
 //        return id;
 //    }

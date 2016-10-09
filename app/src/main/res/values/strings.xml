@@ -76,10 +76,11 @@
 
     <string name="rtype">相关人员类别:</string>
     <string name="rname">姓名:</string>
+    <string name="postion">职务:</string>
     <string name="nation">民族:</string>
     <string name="workdunit">工作单位名称:</string>
     <string name="workduaddress">工作单位地址:</string>
-
+    <string name="address">地址:</string>
     <string name="ispermit">是否办理居住证:</string>
 
 

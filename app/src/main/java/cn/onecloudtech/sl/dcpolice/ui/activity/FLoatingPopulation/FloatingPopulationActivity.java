@@ -2,11 +2,14 @@ package cn.onecloudtech.sl.dcpolice.ui.activity.FLoatingPopulation;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
@@ -24,15 +27,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
+import cn.onecloudtech.sl.dcpolice.adapter.FloatingPopulationPropertyAdapter;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
-import cn.onecloudtech.sl.dcpolice.http.HttpMethods;
-import cn.onecloudtech.sl.dcpolice.model.Person;
-import cn.onecloudtech.sl.dcpolice.model.UpdateData;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
-import cn.onecloudtech.sl.dcpolice.model.User;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
-import cn.onecloudtech.sl.dcpolice.subscribers.ProgressSubscriber;
-import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
@@ -79,14 +77,28 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     EditText etRphone;
     @Bind(R.id.cb_rperson_ispermit)
     CheckBox cbRpersonIspermit;
+    @Bind(R.id.tv_proterty_title)
+    TextView tvProtertyTitle;
+    @Bind(R.id.floating_property_recycler_view)
+    RecyclerView floatingPropertyRecyclerView;
+    @Bind(R.id.ll_floating_property)
+    LinearLayout llFloatingProperty;
+    @Bind(R.id.et_rplatenumber)
+    EditText etRplatenumber;
+    @Bind(R.id.et_rpostion)
+    EditText etRpostion;
+    @Bind(R.id.btn_add_address)
+    Button btnAddAddress;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
     private Integer ispermit = 0;
 
-    private SubscriberOnNextListener getUploadFloatingInfoOnNext;
+    //    private SubscriberOnNextListener getUploadFloatingInfoOnNext;
     private ProgressDialogHandler mProgressDialogHandler;
 
+    private ArrayList<String> addressList = new ArrayList<>();
+    private FloatingPopulationPropertyAdapter floatingPopulationPropertyAdapter;
 
     @Override
     public int getLayoutId() {
@@ -100,19 +112,28 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
             ispermit = isChecked ? 1 : 0;
         }));
 
-        getUploadFloatingInfoOnNext = new SubscriberOnNextListener<UploadResult>() {
 
-            @Override
-            public void onNext(UploadResult uploadResult) {
-                if (uploadResult.getUploadResult() == C.UPLOAD_INFO_SUCCEED) {
-                    ToastUtil.showLong("上传成功");
-                    finish();
+//        getUploadFloatingInfoOnNext =()-> {
+//            if (uploadResult.getUploadResult() == C.UPLOAD_INFO_SUCCEED) {
+//                ToastUtil.showLong("上传成功");
+//                finish();
+//            }
+//
+//        };
+
+//        getUploadFloatingInfoOnNext = new SubscriberOnNextListener<UploadResult>() {
+//
+//            @Override
+//            public void onNext(UploadResult uploadResult) {
+//                if (uploadResult.getUploadResult() == C.UPLOAD_INFO_SUCCEED) {
+//                    ToastUtil.showLong("上传成功");
 //                    finish();
-                }
-
-//                System.out.println(result);
-            }
-        };
+////                    finish();
+//                }
+//
+////                System.out.println(result);
+//            }
+//        };
     }
 
     @Override
@@ -156,7 +177,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     }
 
 
-    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation})
+    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation, R.id.btn_add_address})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_rtype:
@@ -170,6 +191,15 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                 break;
             case R.id.btn_upload_Foaltingpopulation:
                 uploadFloating();
+                break;
+            case R.id.btn_add_address:
+                if (addressList.size() < 3) {
+                    addressList.add("");
+                    floatingPopulationPropertyAdapter.notifyDataSetChanged();
+                }
+
+                break;
+            default:
                 break;
         }
 
@@ -197,6 +227,9 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("ispermit", setRequestBody(ispermit));
         map.put("belongplace", setRequestBody(etRpersonBelongplace));
         map.put("remark", setRequestBody(etRpersonRemark));
+        map.put("position", setRequestBody(etRpostion));
+        map.put("platenumber", setRequestBody(etRplatenumber));
+        map.put("propertyandequipment", setRequestBody(addressList));
         showProgressDialog();
         mPresenter.uploadFloatingPopulation(map);
 
@@ -222,6 +255,13 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         } else {
             if (obj instanceof Integer)
                 return RequestBody.create(MediaType.parse("text/plain"), String.valueOf((Integer) obj));
+            if (obj instanceof ArrayList) {
+                ArrayList<String> arrayList = (ArrayList<String>) obj;
+                String body = "";
+                for (String s : arrayList)
+                    body = body + s + ",";
+                return RequestBody.create(MediaType.parse("text/plain"), body);
+            }
         }
 
         return null;
@@ -257,6 +297,23 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         switch (picker.getId()) {
             case R.id.wheel_rentsl_wheels:
                 btnRtype.setText(C.rtypeList[position]);
+                if (position == 1 || position == 3) {
+                    llFloatingProperty.setVisibility(View.VISIBLE);
+                    addressList.add(0, "");
+//                    addressList.add(1, "");
+                    floatingPopulationPropertyAdapter = new FloatingPopulationPropertyAdapter(this, addressList);
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+                    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    floatingPropertyRecyclerView.setLayoutManager(mLayoutManager);
+                    floatingPropertyRecyclerView.setAdapter(floatingPopulationPropertyAdapter);
+                    if (position == 1) {
+                        tvProtertyTitle.setText("房产地址");
+                    } else {
+                        tvProtertyTitle.setText("产业地址");
+                    }
+                } else {
+                    llFloatingProperty.setVisibility(View.GONE);
+                }
                 break;
             case R.id.sex_wheel:
                 if (position == 0)
@@ -280,4 +337,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

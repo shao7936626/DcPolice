@@ -30,7 +30,7 @@ public class C {
     public static final String[] placetypeList = new String[]{"请选择", "娱乐场所", "服务场所", "特种行业", "九小场所", "物流快递"};
     public static final String[] entertainmentplacetypeList = new String[]{"歌厅", "卡拉OK厅", "迪吧", "夜总会", "电子游戏厅", "棋牌室", "其他"};
     public static final String[] serviceplacetypeList = new String[]{"桑拿洗浴", "美容美发", "足疗按摩", "咖啡馆", "小餐桌", "网吧", "娱乐城", "茶馆", "其他"};
-    public static final String[] specialplacetypeList = new String[]{"旅馆", "开锁", "刻字印刷", "复印", "废旧金属回收", "二手机动车交易", "机动车拆解", "旧货业回收", "机动车电动车修理"};
+    public static final String[] specialplacetypeList = new String[]{"旅馆", "开锁", "刻字印刷", "复印", "废旧金属回收", "二手机动车交易", "机动车拆解", "旧货业回收", "机动车电动车修理","二手手机经营11","金店","典当行"};
     public static final String[] ninesmallplacetypeList = new String[]{"小学校", "小商场", "小医院", "小旅馆", "小歌舞娱乐", "小餐饮", "小网吧", "小美容洗浴", "小生产加工", "其他"};
 
     public static final ArrayList<HashMap<Integer, String>> serList = new ArrayList<HashMap<Integer, String>>();
@@ -50,20 +50,6 @@ public class C {
     public static final String[] rtypeList = new String[]{"请选择", "房东", "房客", "业主", "从业人员"}; //1： 2： 3： 4：
 
     public static final HashMap<Integer, String> RTYPELIST = new HashMap<Integer, String>();
-//     1:"赌博人员"，
-//        2:"涉恶人员"，
-//        3:"涉黄人员"，
-//        4:"食药环人员"，
-//        5:"涉毒人员"，
-//        6:"留置盘问"，
-//        7:"侵财人员"，
-//        8:"刑事传唤"，
-//        9:"负案在逃人员"，
-//        10:"维稳人员"，
-//        11:"失踪人员"，
-//        12:"侵财人员分析"，
-//        13:"技术比中人员"，
-//        15："社会人员"
 
 
     public static final int ENT_CHOICE_DIALOG = 1;

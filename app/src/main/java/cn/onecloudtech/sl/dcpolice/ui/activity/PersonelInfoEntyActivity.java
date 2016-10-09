@@ -219,6 +219,10 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
         bodyphotoAdapter = new PhotoAdapter(this, bodyselectedPhotos);
         initRecyclerViewAdapter(facephoto_recyclerView, facephotoAdapter);
         initRecyclerViewAdapter(bodyphoto_recyclerView, bodyphotoAdapter);
+
+
+
+
         facephoto_recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -624,7 +628,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                 String regEx = "(\\d{14}[0-9x|X])|(\\d{17}[0-9x|X])";
                 Pattern pat = Pattern.compile(regEx);
                 Matcher mat = pat.matcher(val.getText().toString());
-                if (mat.matches() == false) {
+                if (!mat.matches()) {
                     ToastUtil.showLong(key + "请输入正确的身份证号码！");
                     return false;
                 }

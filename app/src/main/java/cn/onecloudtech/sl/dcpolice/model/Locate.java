@@ -37,7 +37,7 @@ public class Locate {
 
     private Integer serviceplacetype;//服务场所(1:桑拿洗浴 2：美容美发 3：足疗按摩 4：咖啡馆 5：小餐桌 6：网吧 7：娱乐城 8：茶馆 9：其他)同上
 
-    private Integer specialplacetype;//特种行业（1:旅馆 2：开锁 3：刻字印刷 4：复印 5：废旧金属回收 6：二手机动车交易 7：机动车拆解 8：旧货业回收 9：机动车电动车修理）同上
+    private Integer specialplacetype;//特种行业（1:旅馆 2：开锁 3：刻字印刷 4：复印 5：废旧金属回收 6：二手机动车交易 7：机动车拆解 8：旧货业回收 9：机动车电动车修理，10、二手手机经营11、金店12、典当行）同上
 
     private Integer ninesmallplacetype;//九小场所(1:小学校 2：小商场 3：小医院 4：小旅馆 5：小歌舞娱乐 6：小餐饮 7：小网吧 8：小美容洗浴 9：小生产加工 10：其他)同上
 
@@ -68,6 +68,8 @@ public class Locate {
     private String protectcondition;//物防情况（防盗门 防盗窗 报警器 其他）
 
     private String businessscope;//经营范围
+
+
 
     public String getAddress() {
         return address;
