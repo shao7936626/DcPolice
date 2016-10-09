@@ -30,7 +30,7 @@ public class C {
     public static final String[] placetypeList = new String[]{"请选择", "娱乐场所", "服务场所", "特种行业", "九小场所", "物流快递"};
     public static final String[] entertainmentplacetypeList = new String[]{"歌厅", "卡拉OK厅", "迪吧", "夜总会", "电子游戏厅", "棋牌室", "其他"};
     public static final String[] serviceplacetypeList = new String[]{"桑拿洗浴", "美容美发", "足疗按摩", "咖啡馆", "小餐桌", "网吧", "娱乐城", "茶馆", "其他"};
-    public static final String[] specialplacetypeList = new String[]{"旅馆", "开锁", "刻字印刷", "复印", "废旧金属回收", "二手机动车交易", "机动车拆解", "旧货业回收", "机动车电动车修理","二手手机经营11","金店","典当行"};
+    public static final String[] specialplacetypeList = new String[]{"旅馆", "开锁", "刻字印刷", "复印", "废旧金属回收", "二手机动车交易", "机动车拆解", "旧货业回收", "机动车电动车修理","二手手机经营","金店","典当行"};
     public static final String[] ninesmallplacetypeList = new String[]{"小学校", "小商场", "小医院", "小旅馆", "小歌舞娱乐", "小餐饮", "小网吧", "小美容洗浴", "小生产加工", "其他"};
 
     public static final ArrayList<HashMap<Integer, String>> serList = new ArrayList<HashMap<Integer, String>>();

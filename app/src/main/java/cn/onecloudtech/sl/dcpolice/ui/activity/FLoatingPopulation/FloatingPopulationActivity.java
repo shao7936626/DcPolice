@@ -139,7 +139,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     @Override
     public void doInitView() {
         C.SEX.put(1, "男");
-        C.SEX.put(0, "女");
+        C.SEX.put(2, "女");
 
         HashMapUtil.initHashMap(C.rtypeList, C.RTYPELIST);
 
@@ -193,6 +193,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                 uploadFloating();
                 break;
             case R.id.btn_add_address:
+
                 if (addressList.size() < 3) {
                     addressList.add("");
                     floatingPopulationPropertyAdapter.notifyDataSetChanged();
@@ -229,7 +230,8 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("remark", setRequestBody(etRpersonRemark));
         map.put("position", setRequestBody(etRpostion));
         map.put("platenumber", setRequestBody(etRplatenumber));
-        map.put("propertyandequipment", setRequestBody(addressList));
+        if (addressList.size() > 0)
+            map.put("propertyandequipment", setRequestBody(addressList));
         showProgressDialog();
         mPresenter.uploadFloatingPopulation(map);
 
@@ -299,19 +301,23 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                 btnRtype.setText(C.rtypeList[position]);
                 if (position == 1 || position == 3) {
                     llFloatingProperty.setVisibility(View.VISIBLE);
-                    addressList.add(0, "");
-//                    addressList.add(1, "");
-                    floatingPopulationPropertyAdapter = new FloatingPopulationPropertyAdapter(this, addressList);
-                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-                    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    floatingPropertyRecyclerView.setLayoutManager(mLayoutManager);
-                    floatingPropertyRecyclerView.setAdapter(floatingPopulationPropertyAdapter);
+                    addressList.clear();
+                    addressList.add("");
                     if (position == 1) {
                         tvProtertyTitle.setText("房产地址");
                     } else {
                         tvProtertyTitle.setText("产业地址");
                     }
+                    floatingPopulationPropertyAdapter = new FloatingPopulationPropertyAdapter(this, addressList);
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+                    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    floatingPropertyRecyclerView.setLayoutManager(mLayoutManager);
+                    floatingPropertyRecyclerView.setAdapter(floatingPopulationPropertyAdapter);
+                    floatingPropertyRecyclerView.setHasFixedSize(true);
+
                 } else {
+                    addressList.clear();
                     llFloatingProperty.setVisibility(View.GONE);
                 }
                 break;

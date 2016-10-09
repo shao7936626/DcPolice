@@ -553,7 +553,11 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                             if (selected[i]) {
                                 selectedStr = selectedStr + "," + list[i];
                             }
-                            mButton.setText(selectedStr);
+                        }
+                        if(selectedStr.length()>0){
+                            String m = selectedStr.substring(0,1);
+                            if(m.equals(","))
+                                selectedStr = selectedStr.substring(1,selectedStr.length());
                         }
                     }
                 };
