@@ -53,7 +53,7 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
 
         Context context = holder.itemView.getContext();
 
-//        propertyViewHolder.address.setText(addressList.get(position));
+        propertyViewHolder.address.setText(addressList.get(position));
         propertyViewHolder.address.setTag(position);
         propertyViewHolder.setIsRecyclable(false);
         propertyViewHolder.address.addTextChangedListener(new MyCustomEditTextListener(holder));

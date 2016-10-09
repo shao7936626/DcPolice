@@ -82,6 +82,6 @@
     <string name="workduaddress">工作单位地址:</string>
     <string name="address">地址:</string>
     <string name="ispermit">是否办理居住证:</string>
-
+    <string name="relationship">和房东关系:</string>
 
 </resources>

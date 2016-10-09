@@ -558,7 +558,9 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                             String m = selectedStr.substring(0,1);
                             if(m.equals(","))
                                 selectedStr = selectedStr.substring(1,selectedStr.length());
+                            mButton.setText(selectedStr);
                         }
+
                     }
                 };
         builder.setPositiveButton("确定", btnListener);

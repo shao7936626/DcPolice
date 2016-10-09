@@ -29,7 +29,7 @@
                 />
 
         </LinearLayout>
-
+        <include layout="@layout/util_relationship" />
         <include  layout="@layout/util_floatingpopulation_property" />
 
         <LinearLayout

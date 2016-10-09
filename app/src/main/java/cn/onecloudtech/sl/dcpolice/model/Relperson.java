@@ -46,6 +46,8 @@ public class Relperson {
 
     private String platenumber;//车牌号码
 
+    private String relationshipwithlandlord;
+
 //    public Integer getId() {
 //        return id;
 //    }

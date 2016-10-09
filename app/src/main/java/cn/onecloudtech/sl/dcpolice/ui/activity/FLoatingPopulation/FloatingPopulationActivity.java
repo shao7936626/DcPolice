@@ -40,7 +40,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener ,FloatingPopulationPropertyAdapter.SaveEditListener{
+public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, FloatingPopulationPropertyAdapter.SaveEditListener {
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.btn_rtype)
@@ -89,6 +89,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     EditText etRpostion;
     @Bind(R.id.btn_add_address)
     Button btnAddAddress;
+    @Bind(R.id.et_rrelationship)
+    EditText etRrelationship;
+    @Bind(R.id.ll_relationship)
+    LinearLayout llRelationship;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
@@ -232,6 +236,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("platenumber", setRequestBody(etRplatenumber));
         if (addressList.size() > 0)
             map.put("propertyandequipment", setRequestBody(addressList));
+        map.put("relationshipwithlandlord",setRequestBody(etRrelationship));
         showProgressDialog();
         mPresenter.uploadFloatingPopulation(map);
 
@@ -299,7 +304,9 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         switch (picker.getId()) {
             case R.id.wheel_rentsl_wheels:
                 btnRtype.setText(C.rtypeList[position]);
+                llRelationship.setVisibility(View.GONE);
                 if (position == 1 || position == 3) {
+
                     llFloatingProperty.setVisibility(View.VISIBLE);
                     addressList.clear();
                     addressList.add("");
@@ -316,7 +323,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                     floatingPropertyRecyclerView.setAdapter(floatingPopulationPropertyAdapter);
                     floatingPropertyRecyclerView.setHasFixedSize(true);
 
-                } else {
+                }else if(position == 2){
+                    llRelationship.setVisibility(View.VISIBLE);
+                }
+                else {
                     addressList.clear();
                     llFloatingProperty.setVisibility(View.GONE);
                 }
@@ -352,6 +362,6 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
     @Override
     public void SaveEdit(int position, String string) {
-        addressList.add(position,string);
+        addressList.set(position, string);
     }
 }
