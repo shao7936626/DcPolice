@@ -29,6 +29,12 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
     private ArrayList<String> addressList;
     private Context mContext;
 
+
+    public interface SaveEditListener {
+
+        void SaveEdit(int position, String string);
+    }
+
     public FloatingPopulationPropertyAdapter(Context mContext, ArrayList<String> addressList) {
         inflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
@@ -38,17 +44,19 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
     @Override
     public FloatingPopulationPropertyAdapter.PropertyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.property_address_list_item, null, false);
-        return new PropertyViewHolder(itemView, new MyCustomEditTextListener());
+        return new PropertyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(PropertyViewHolder holder, int position) {
+    public void onBindViewHolder(final PropertyViewHolder holder, int position) {
         PropertyViewHolder propertyViewHolder = holder;
+
         Context context = holder.itemView.getContext();
 
-        propertyViewHolder.address.setText(addressList.get(position));
+//        propertyViewHolder.address.setText(addressList.get(position));
         propertyViewHolder.address.setTag(position);
-//        propertyViewHolder.address.addTextChangedListener();
+        propertyViewHolder.setIsRecyclable(false);
+        propertyViewHolder.address.addTextChangedListener(new MyCustomEditTextListener(holder));
 
     }
 
@@ -63,11 +71,11 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
         public TextView addressName;
         public MyCustomEditTextListener myCustomEditTextListener;
 
-        public PropertyViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
+        public PropertyViewHolder(View itemView) {
             super(itemView);
             addressName = (TextView) itemView.findViewById(R.id.tv_addressname);
             address = (EditText) itemView.findViewById(R.id.et_property_address);
-            address.addTextChangedListener(myCustomEditTextListener);
+//            address.addTextChangedListener(myCustomEditTextListener);
 
 
         }
@@ -75,8 +83,17 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
 
     private class MyCustomEditTextListener implements TextWatcher {
         private int position;
+        private PropertyViewHolder mHolder;
 
-        public void updatePosition(int position) {
+        public MyCustomEditTextListener(PropertyViewHolder holder) {
+            mHolder = holder;
+        }
+
+        public void updatePosition(PropertyViewHolder holder) {
+            mHolder = holder;
+        }
+
+        public MyCustomEditTextListener(int position) {
             this.position = position;
         }
 
@@ -87,14 +104,17 @@ public class FloatingPopulationPropertyAdapter extends RecyclerView.Adapter<Floa
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            addressList.set(position, charSequence.toString());
+
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
             // no op
-
-           
+//            addressList.set(position, editable.toString());
+            SaveEditListener listener = (SaveEditListener) mContext;
+            if (editable != null) {
+                listener.SaveEdit(Integer.parseInt(mHolder.address.getTag().toString()), editable.toString());
+            }
         }
     }
 

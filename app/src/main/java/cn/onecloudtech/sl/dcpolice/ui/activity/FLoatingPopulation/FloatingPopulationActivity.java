@@ -40,7 +40,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener {
+public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener ,FloatingPopulationPropertyAdapter.SaveEditListener{
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.btn_rtype)
@@ -348,5 +348,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void SaveEdit(int position, String string) {
+        addressList.add(position,string);
     }
 }
