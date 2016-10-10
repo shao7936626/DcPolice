@@ -38,6 +38,7 @@ import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
 import cn.onecloudtech.sl.dcpolice.model.Locate;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
+import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
@@ -49,7 +50,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, RentalHousingModel> implements RentalHousingContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener {
+public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, RentalHousingModel> implements RentalHousingContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, ProgressCancelListener {
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.sb_isrental)
@@ -178,6 +179,9 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
         if (uploadResult.getUploadResult() == C.UPLOAD_INFO_SUCCEED) {
             ToastUtil.showLong("上传成功");
             this.finish();
+        } else {
+            dissmissProgressDialog();
+            ToastUtil.showLong("上传失败");
         }
     }
 
@@ -553,12 +557,15 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                             if (selected[i]) {
                                 selectedStr = selectedStr + "," + list[i];
                             }
-                        }
-                        if(selectedStr.length()>0){
-                            String m = selectedStr.substring(0,1);
-                            if(m.equals(","))
-                                selectedStr = selectedStr.substring(1,selectedStr.length());
                             mButton.setText(selectedStr);
+                        }
+                        if (selectedStr.length() > 0) {
+                            String m = selectedStr.substring(0, 1);
+                            if (m.equals(","))
+                                selectedStr = selectedStr.substring(1, selectedStr.length());
+                            mButton.setText(selectedStr);
+                        }else {
+                            mButton.setText("请选择");
                         }
 
                     }
@@ -569,5 +576,9 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     }
 
 
+    @Override
+    public void onCancelProgress() {
+        dissmissProgressDialog();
+    }
 }
 

@@ -151,6 +151,7 @@
                 <EditText
                     android:id="@+id/et_numberofrelperson"
                     android:layout_width="match_parent"
+                    android:inputType="number"
                     android:layout_height="wrap_content"
                     />
             </LinearLayout>

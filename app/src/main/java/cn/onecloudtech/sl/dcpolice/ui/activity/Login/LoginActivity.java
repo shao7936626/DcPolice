@@ -20,6 +20,7 @@ import cn.onecloudtech.sl.dcpolice.base.BaseApplication;
 import cn.onecloudtech.sl.dcpolice.http.HttpMethods;
 import cn.onecloudtech.sl.dcpolice.model.UpdateData;
 import cn.onecloudtech.sl.dcpolice.model.User;
+import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.subscribers.ProgressSubscriber;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
@@ -36,7 +37,7 @@ import rx.Subscriber;
 /**
  * Created by Administrator on 2016/7/18.
  */
-public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View {
+public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View ,ProgressCancelListener {
 
 
     @Bind(R.id.btn_login)
@@ -353,8 +354,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
                 startActivity(workbench);
                 finish();
             } else if (user.getUnitid() == -1) {
-                //ToastUtil.showShort("密码错误");
-                showMsg("密码错误");
+                dissmissProgressDialog();
+//                showMsg("账户或者密码错误");
+                ToastUtil.showShort("账户或者密码错误");
             }
         } else {
 
@@ -363,7 +365,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     @Override
     public void showProgressDialog() {
-        mProgressDialogHandler = new ProgressDialogHandler(this, null, false);
+        mProgressDialogHandler = new ProgressDialogHandler(this, this, true);
         mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
     }
 
@@ -377,5 +379,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     @Override
     public void showMsg(String msg) {
         Snackbar.make(btnLogin, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCancelProgress() {
+        dissmissProgressDialog();
     }
 }

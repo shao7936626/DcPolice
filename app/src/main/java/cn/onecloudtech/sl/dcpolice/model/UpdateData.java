@@ -13,7 +13,7 @@ public class UpdateData {
 
 
     public String getUpdateUrl() {
-        return C.SERVER_IP + C.SERVER_PORT + "/dchceSrvice/" + updateurl;
+        return C.SERVER_IP + C.SERVER_PORT + C.SERVICE_NAME + updateurl;
         //return updateUrl;
     }
 

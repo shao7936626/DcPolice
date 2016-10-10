@@ -30,6 +30,7 @@ import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.adapter.FloatingPopulationPropertyAdapter;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
+import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
@@ -40,7 +41,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, FloatingPopulationPropertyAdapter.SaveEditListener {
+public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, FloatingPopulationPropertyAdapter.SaveEditListener, ProgressCancelListener {
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.btn_rtype)
@@ -142,9 +143,8 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
     @Override
     public void doInitView() {
-        C.SEX.put(1, "男");
-        C.SEX.put(2, "女");
 
+        HashMapUtil.initHashMap(C.sexList, C.SEX);
         HashMapUtil.initHashMap(C.rtypeList, C.RTYPELIST);
 
     }
@@ -159,6 +159,9 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         if (uploadResult.getUploadResult() == C.UPLOAD_INFO_SUCCEED) {
             ToastUtil.showLong("上传成功");
             this.finish();
+        } else {
+            dissmissProgressDialog();
+            ToastUtil.showLong("上传失败");
         }
     }
 
@@ -236,7 +239,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("platenumber", setRequestBody(etRplatenumber));
         if (addressList.size() > 0)
             map.put("propertyandequipment", setRequestBody(addressList));
-        map.put("relationshipwithlandlord",setRequestBody(etRrelationship));
+        map.put("relationshipwithlandlord", setRequestBody(etRrelationship));
         showProgressDialog();
         mPresenter.uploadFloatingPopulation(map);
 
@@ -323,10 +326,9 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                     floatingPropertyRecyclerView.setAdapter(floatingPopulationPropertyAdapter);
                     floatingPropertyRecyclerView.setHasFixedSize(true);
 
-                }else if(position == 2){
+                } else if (position == 2) {
                     llRelationship.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     addressList.clear();
                     llFloatingProperty.setVisibility(View.GONE);
                 }
@@ -363,5 +365,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     @Override
     public void SaveEdit(int position, String string) {
         addressList.set(position, string);
+    }
+
+    @Override
+    public void onCancelProgress() {
+        dissmissProgressDialog();
     }
 }

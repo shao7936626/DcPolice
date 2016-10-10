@@ -9,9 +9,10 @@ public class HashMapUtil {
 
 
     public static void initHashMap(String[] mStringlist, HashMap<Integer, String> mHashMap) {
-        for (int i = 0; i < mStringlist.length; i++) {
-            mHashMap.put(i, mStringlist[i]);
-        }
+        if (mHashMap.isEmpty())
+            for (int i = 0; i < mStringlist.length; i++) {
+                mHashMap.put(i, mStringlist[i]);
+            }
     }
 
 }

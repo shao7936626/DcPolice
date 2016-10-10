@@ -5,7 +5,7 @@
     <dimen name="WheelIndicatorSize">2dp</dimen>
     <dimen name="WheelMargins">8dp</dimen>
     <dimen name="actionBarSize">32dip</dimen>
-    <dimen name="personinfoSize">40dip</dimen>
+    <dimen name="personinfoSize">45dip</dimen>
     <dimen name="personinfoleftSize">20dip</dimen>
     <dimen name="personinfotopSize">5dip</dimen>
     <dimen name="photosize">100dip</dimen>

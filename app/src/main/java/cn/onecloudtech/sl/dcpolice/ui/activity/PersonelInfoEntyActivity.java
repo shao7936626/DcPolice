@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -269,11 +270,11 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     private void initData() {
         //initHashMap(C.sexList, C.SEX);
 
-        C.SEX.put(1, "男");
-        C.SEX.put(0, "女");
 
+        HashMapUtil.initHashMap(C.sexList, C.SEX);
         HashMapUtil.initHashMap(C.entrysenseList, C.ENTRYSENSE);
         HashMapUtil.initHashMap(C.persontypeList, C.PERSONTYPE);
+
     }
 
     private void initHashMap(String[] mStringlist, HashMap<Integer, String> mHashMap) {
@@ -479,6 +480,11 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                     map.put("idcard", setRequestBody(etPersonIdcard));
                     map.put("userroleId", setRequestBody(((BaseApplication) getApplication()).getUser().getId()));
                     addImage2Map("facepic", faceselectedPhotos);
+
+
+                    btnCheck.setClickable(false);
+                    MyCountDownTimer timer = new MyCountDownTimer();
+                    timer.start();
                     HttpMethods.getInstance().doCheckPersonInfo(new ProgressSubscriber(getCheckPersonInfoOnNext, PersonelInfoEntyActivity.this), map);
                 } else {
 
@@ -498,6 +504,28 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                         .start(this);
                 break;
         }
+    }
+
+    class MyCountDownTimer extends CountDownTimer {
+        // 必须显示的调用父类的构造方法
+        public MyCountDownTimer() {
+            // millisInFuture 倒计时的时间 毫秒
+            // countDownInterval间隔多少毫秒执行一次事件
+            super(10000, 1000);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // 每countDownInterval触发一次onTick事件
+            btnCheck.setText("还剩" + millisUntilFinished / 1000 + "秒可以再次判断");
+        }
+
+        @Override
+        public void onFinish() {
+            btnCheck.setClickable(true);
+            btnCheck.setText("判断");
+        }
+
     }
 
     private boolean addImage2Map(String mString, ArrayList<String> selectedPhotos) {
