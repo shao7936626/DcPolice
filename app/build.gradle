@@ -70,7 +70,10 @@ dependencies {
     //butterknife
     compile 'com.jakewharton:butterknife:7.0.0'
     //wheelpicker
-    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.1'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+
+    //pickerview
+    compile 'cn.qqtheme.framework:WheelPicker:latest.release'
 
     //photoPicker
     compile 'me.iwf.photopicker:PhotoPicker:0.8.5@aar'
@@ -86,4 +89,7 @@ dependencies {
     compile 'cn.jiguang:jpush:2.1.9'
 
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+
+    compile 'com.alibaba:fastjson:1.1.54.android'
 }

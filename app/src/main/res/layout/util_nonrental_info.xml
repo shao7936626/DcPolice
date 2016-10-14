@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="非出租房相关信息"
+            android:text="基本信息"
             android:textColor="@color/blue"
             android:textSize="25dp" />
 

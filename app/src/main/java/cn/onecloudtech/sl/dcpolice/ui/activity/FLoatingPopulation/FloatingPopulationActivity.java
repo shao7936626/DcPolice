@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker;
+import com.alibaba.fastjson.JSON;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,12 +30,16 @@ import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.adapter.FloatingPopulationPropertyAdapter;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
+import cn.onecloudtech.sl.dcpolice.model.LinkageItem;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
+import cn.qqtheme.framework.picker.AddressPicker;
+import cn.qqtheme.framework.picker.LinkagePicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -68,8 +73,6 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     EditText etRpersonWorkdunit;
     @Bind(R.id.et_rperson_workduaddress)
     EditText etRpersonWorkduaddress;
-    @Bind(R.id.et_rperson_belongplace)
-    EditText etRpersonBelongplace;
     @Bind(R.id.et_rperson_remark)
     EditText etRpersonRemark;
     @Bind(R.id.btn_upload_Foaltingpopulation)
@@ -94,6 +97,8 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     EditText etRrelationship;
     @Bind(R.id.ll_relationship)
     LinearLayout llRelationship;
+    @Bind(R.id.btn_belongplace)
+    Button btnBelongplace;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
@@ -105,6 +110,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     private ArrayList<String> addressList = new ArrayList<>();
     private FloatingPopulationPropertyAdapter floatingPopulationPropertyAdapter;
 
+    private Integer belongplace;// 所属社区派出所 详见“德城分局社区警务室情况（10.14）.xls”
+
+    private Integer policeroom; //所属警务室 详见“德城分局社区警务室情况（10.14）.xls”
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_relativeperson;
@@ -112,7 +121,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
     @Override
     public void initView() {
-        tvHead.setText("流动人口登记");
+        tvHead.setText(R.string.floatingpopulation);
         cbRpersonIspermit.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             ispermit = isChecked ? 1 : 0;
         }));
@@ -184,7 +193,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     }
 
 
-    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation, R.id.btn_add_address})
+    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation, R.id.btn_add_address, R.id.btn_belongplace})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_rtype:
@@ -207,10 +216,43 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                 }
 
                 break;
+            case R.id.btn_belongplace:
+//                showWheel(C.WHEELDATE, R.layout.date_wheel_view, R.id.wheel_date_picker, R.string.dateSelector, null);
+
+                onLinkagePicker();
+
+                break;
             default:
                 break;
         }
 
+    }
+
+    public void onLinkagePicker() {
+        try {
+            ArrayList<AddressPicker.Province> data = new ArrayList<AddressPicker.Province>();
+            String json = ConvertUtils.toString(getAssets().open("city3.json"));
+            data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
+            AddressPicker picker = new AddressPicker(this, data);
+            picker.setHideProvince(true);
+//            picker.setSelectedItem("贵州", "贵阳", "花溪");
+            picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
+                @Override
+                public void onAddressPicked(AddressPicker.Province province, AddressPicker.City city, AddressPicker.County county) {
+//                    if (county == null) {
+//                        ToastUtil.showShort("province : " + province + ", city: " + city);
+//                    } else {
+//                        ToastUtil.showShort("province : " + province + ", city: " + city + ", county: " + county);
+//                    }
+                    btnBelongplace.setText(city.getAreaName() + " " + county.getAreaName());
+                    belongplace = Integer.parseInt(city.getAreaId());
+                    policeroom = Integer.parseInt(county.getAreaId());
+                }
+            });
+            picker.show();
+        } catch (Exception e) {
+//            showToast(e.toString());
+        }
     }
 
     private void uploadFloating() {
@@ -233,7 +275,10 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         map.put("workdunitaddress", setRequestBody(etRpersonWorkduaddress));
         map.put("telphone", setRequestBody(etRphone));
         map.put("ispermit", setRequestBody(ispermit));
-        map.put("belongplace", setRequestBody(etRpersonBelongplace));
+
+        map.put("belongplace", setRequestBody(belongplace));
+        map.put("policeroom", setRequestBody(policeroom));
+
         map.put("remark", setRequestBody(etRpersonRemark));
         map.put("position", setRequestBody(etRpostion));
         map.put("platenumber", setRequestBody(etRplatenumber));

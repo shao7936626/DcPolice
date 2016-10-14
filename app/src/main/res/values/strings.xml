@@ -11,8 +11,8 @@
     <string name="dateSelector">请选择日期</string>
     <string name="entrysenseSelector">请选择录入场景</string>
     <string name="personTypeSelector">请选择人员类型</string>
-    <string name="personnelEntryInfo">人员信息录入</string>
-    <string name="personnelSearchInfo">历史信息查询</string>
+    <string name="personnelEntryInfo">核查人员信息录入</string>
+    <string name="personnelSearchInfo">核查人员历史信息查询</string>
     <string name="QQ">QQ：</string>
     <string name="weiChat">微信号：</string>
     <string name="IdCard">身份证号：</string>
@@ -33,15 +33,15 @@
     <string name="checktime">判断时间：</string>
     <string name="can_not_find_version_name">找不到版本号</string>
     <string name="copyleft">Copyright @2012-2016 CloudSense Inc. All Rights Reserved</string>
-    <string name="rentalAndfloating">出租房屋和流动人口登记</string>
+    <string name="rentalAndfloating">出租房屋和人口登记</string>
     <string name="checkpersoninfo">判断</string>
     <string name="rentalhousing">地点场所登记</string>
-    <string name="floatingpopulation">流动人口登记</string>
+    <string name="floatingpopulation">相关人口信息登记</string>
 
 
     <string name="isRentalHousing">是否为出租房:</string>
     <string name="rentaladdress">场所地址（详细地址,门牌号）:</string>
-    <string name="belongplace">所属派出所或社区:</string>
+    <string name="belongplace">所属派出所:</string>
     <string name="policename">社区民警姓名:</string>
     <string name="registername">注册名称:</string>
     <string name="realregistername">实际经营名称:</string>
@@ -73,6 +73,7 @@
 
     <string name="m2">平方米</string>
 
+    <!--<string name="floatingpopulationentry">相关人口信息登记</string>-->
 
     <string name="rtype">相关人员类别:</string>
     <string name="rname">姓名:</string>

@@ -1,0 +1,264 @@
+[
+  {
+    "cities": [
+      {
+        "counties": [
+          {
+            "areaName": "小锅市社区警务室",
+            "areaId": "1"
+          },
+          {
+            "areaName": "桥口社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "北营社区警务室",
+            "areaId": "3"
+          },
+          {
+            "areaName": "荣庄社区警务室",
+            "areaId": "4"
+          },
+          {
+            "areaName": "丰华社区警务室",
+            "areaId": "5"
+          },
+          {
+            "areaName": "胜利社区警务室",
+            "areaId": "6"
+          },
+          {
+            "areaName": "顺城社区警务室",
+            "areaId": "7"
+          },
+          {
+            "areaName": "城隍庙社区警务室",
+            "areaId": "8"
+          }
+        ],
+        "areaName": "剪子股派出所",
+        "areaId": "1"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "馨秋社区警务室",
+            "areaId": "1"
+          },
+          {
+            "areaName": "二十里铺社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "焦庄社区警务室",
+            "areaId": "3"
+          }
+        ],
+        "areaName": "黄河涯派出所",
+        "areaId": "2"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "文化社区金紫荆警务室 ",
+            "areaId": "1"
+          },
+          {
+            "areaName": "祥和社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "永庆社区警务室   ",
+            "areaId": "3"
+          },
+          {
+            "areaName": "东方家园社区机关警务室",
+            "areaId": "4"
+          }
+        ],
+        "areaName": "东地派出所 ",
+        "areaId": "3"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "益德社区警务室",
+            "areaId": "1"
+          },
+          {
+            "areaName": "振华社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "德苑社区警务室 ",
+            "areaId": "3"
+          },
+          {
+            "areaName": "邹李社区警务室",
+            "areaId": "4"
+          },
+          {
+            "areaName": "辛庄社区警务室 ",
+            "areaId": "5"
+          },
+          {
+            "areaName": "新河社区警务室",
+            "areaId": "6"
+          }
+        ],
+        "areaName": "新河东路派出所",
+        "areaId": "4"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "新园社区警务室   ",
+            "areaId": "1"
+          },
+          {
+            "areaName": "魏庄社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "三七社区警务室   ",
+            "areaId": "3"
+          },
+          {
+            "areaName": "新领域社区警务室   ",
+            "areaId": "4"
+          }
+        ],
+        "areaName": "于官屯派出所 ",
+        "areaId": "5"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "北园社区警务室  ",
+            "areaId": "1"
+          },
+          {
+            "areaName": "尉署社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "状元府社区警务室   ",
+            "areaId": "3"
+          },
+          {
+            "areaName": "南龙社区警务室",
+            "areaId": "4"
+          },
+          {
+            "areaName": "罗南社区警务室 ",
+            "areaId": "5"
+          }
+        ],
+        "areaName": "建设街派出所",
+        "areaId": "6"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "南关社区警务室   ",
+            "areaId": "1"
+          },
+          {
+            "areaName": "南营社区警务室  ",
+            "areaId": "2"
+          },
+          {
+            "areaName": "南市社区警务室   ",
+            "areaId": "3"
+          },
+          {
+            "areaName": "柴市社区警务室 ",
+            "areaId": "4"
+          },
+          {
+            "areaName": "马庄社区警务室  ",
+            "areaId": "5"
+          },
+          {
+            "areaName": "马市社区警务室  ",
+            "areaId": "6"
+          }
+        ],
+        "areaName": "车站街派出所",
+        "areaId": "7"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "大东关社区警务室  ",
+            "areaId": "1"
+          },
+          {
+            "areaName": "长乐社区警务室   ",
+            "areaId": "2"
+          },
+          {
+            "areaName": "学府社区警务室",
+            "areaId": "3"
+          },
+          {
+            "areaName": "锦绣川社区警务室",
+            "areaId": "4"
+          },
+          {
+            "areaName": "岔河社区警务室   ",
+            "areaId": "5"
+          }
+        ],
+        "areaName": "湖滨北路派出所",
+        "areaId": "8"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "馨苑社区警务室",
+            "areaId": "1"
+          },
+          {
+            "areaName": "舜昕缘社区警务室",
+            "areaId": "2"
+          }
+        ],
+        "areaName": "二屯派出所",
+        "areaId": "9"
+      },
+      {
+        "counties": [
+          {
+            "areaName": "肖何社区警务室",
+            "areaId": "1"
+          },
+          {
+            "areaName": "罗庄社区警务室",
+            "areaId": "2"
+          },
+          {
+            "areaName": "果园社区警务室",
+            "areaId": "3"
+          },
+          {
+            "areaName": "乾城社区警务室",
+            "areaId": "4"
+          },
+          {
+            "areaName": "新四合警务室",
+            "areaId": "5"
+          },
+          {
+            "areaName": "翟时社区警务室",
+            "areaId": "6"
+          }
+        ],
+        "areaName": "长庄派出所",
+        "areaId": "10"
+      }
+    ],
+    "areaName": "德州市 ",
+    "areaId": "0534"
+  }
+]

@@ -1,10 +1,8 @@
 package cn.onecloudtech.sl.dcpolice.ui.activity.RentalHousing;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +14,11 @@ import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker;
+import com.alibaba.fastjson.JSON;
 import com.kyleduo.switchbutton.SwitchButton;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,13 +32,14 @@ import butterknife.OnClick;
 import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
-import cn.onecloudtech.sl.dcpolice.model.Locate;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
+import cn.qqtheme.framework.picker.AddressPicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -63,8 +60,6 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     LinearLayout preventioninfo;
     @Bind(R.id.et_rentaladdress)
     EditText etRentaladdress;
-    @Bind(R.id.et_belongplace)
-    EditText etBelongplace;
     @Bind(R.id.et_policename)
     EditText etPolicename;
     @Bind(R.id.et_registername)
@@ -119,11 +114,16 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     LinearLayout llServiceplacetype;
     @Bind(R.id.btn_upload_rental)
     Button btnUploadRental;
+    @Bind(R.id.btn_belongplace)
+    Button btnBelongplace;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
     private Integer islethouse = 0;
     private ProgressDialogHandler mProgressDialogHandler;
+    private Integer belongplace;// 所属社区派出所 详见“德城分局社区警务室情况（10.14）.xls”
+
+    private Integer policeroom; //所属警务室 详见“德城分局社区警务室情况（10.14）.xls”
 
     @Override
     public int getLayoutId() {
@@ -133,18 +133,18 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     @Override
     public void initView() {
         tvHead.setText("地点场所登记");
-        sbIsrental.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            islethouse = isChecked ? 1 : 0;
-            if (isChecked) {
-                preventioninfo.setVisibility(View.GONE);
-                firefighting.setVisibility(View.GONE);
-                nonrentalinfo.setVisibility(View.GONE);
-            } else {
-                preventioninfo.setVisibility(View.VISIBLE);
-                firefighting.setVisibility(View.VISIBLE);
-                nonrentalinfo.setVisibility(View.VISIBLE);
-            }
-        });
+//        sbIsrental.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            islethouse = isChecked ? 1 : 0;
+//            if (isChecked) {
+//                preventioninfo.setVisibility(View.GONE);
+//                firefighting.setVisibility(View.GONE);
+//                nonrentalinfo.setVisibility(View.GONE);
+//            } else {
+//                preventioninfo.setVisibility(View.VISIBLE);
+//                firefighting.setVisibility(View.VISIBLE);
+//                nonrentalinfo.setVisibility(View.VISIBLE);
+//            }
+//        });
 
 //        DataBindingUtil.setContentView(this, R.layout.activity_rentalhousing);
 
@@ -204,7 +204,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     }
 
 
-    @OnClick({R.id.btn_placetype, R.id.btn_serviceplacetype, R.id.btn_firefacilities, R.id.btn_protectcondition, R.id.btn_opentime, R.id.btn_upload_rental})
+    @OnClick({R.id.btn_placetype, R.id.btn_serviceplacetype, R.id.btn_firefacilities, R.id.btn_protectcondition, R.id.btn_opentime, R.id.btn_upload_rental,R.id.btn_belongplace})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_placetype:
@@ -231,8 +231,38 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 //                doUploadRentalHousingInfo();
                 uploadRental();
                 break;
+            case R.id.btn_belongplace:
+                onLinkagePicker();
+                break;
             default:
                 break;
+        }
+    }
+
+    public void onLinkagePicker() {
+        try {
+            ArrayList<AddressPicker.Province> data = new ArrayList<AddressPicker.Province>();
+            String json = ConvertUtils.toString(getAssets().open("city3.json"));
+            data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
+            AddressPicker picker = new AddressPicker(this, data);
+            picker.setHideProvince(true);
+//            picker.setSelectedItem("贵州", "贵阳", "花溪");
+            picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
+                @Override
+                public void onAddressPicked(AddressPicker.Province province, AddressPicker.City city, AddressPicker.County county) {
+//                    if (county == null) {
+//                        ToastUtil.showShort("province : " + province + ", city: " + city);
+//                    } else {
+//                        ToastUtil.showShort("province : " + province + ", city: " + city + ", county: " + county);
+//                    }
+                    btnBelongplace.setText(city.getAreaName() + " " + county.getAreaName());
+                    belongplace = Integer.parseInt(city.getAreaId());
+                    policeroom = Integer.parseInt(county.getAreaId());
+                }
+            });
+            picker.show();
+        } catch (Exception e) {
+//            showToast(e.toString());
         }
     }
 
@@ -243,7 +273,8 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
         map.put("address", setRequestBody(etRentaladdress));
         map.put("islethouse", setRequestBody(islethouse));
-        map.put("belongplace", setRequestBody(etBelongplace));
+        map.put("belongplace", setRequestBody(belongplace));
+        map.put("policeroom", setRequestBody(policeroom));
         map.put("policename", setRequestBody(etPolicename));
         map.put("registername", setRequestBody(etRegistername));
         map.put("realregistername", setRequestBody(etRealregistername));
@@ -396,11 +427,10 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                             return RequestBody.create(MediaType.parse("text/plain"), String.valueOf(ButtonUtil.getBtnKey((Button) v, C.serList.get(i))));
                         }
                     }
-//                    if(String.valueOf(ButtonUtil.getBtnKey(btnPlacetype, C.PLACETYPE)).equals("1")){
-//                        return RequestBody.create(MediaType.parse("text/plain"), String.valueOf(ButtonUtil.getBtnKey((Button) v, C.ENTERTARINMENTPLACETYPE)));
-//                    }
+                } else {
+                    return RequestBody.create(MediaType.parse("text/plain"), ((Button) v).getText().toString());
                 }
-                return RequestBody.create(MediaType.parse("text/plain"), ((Button) v).getText().toString());
+
             }
         }
         if (obj instanceof Integer)
@@ -564,7 +594,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
                             if (m.equals(","))
                                 selectedStr = selectedStr.substring(1, selectedStr.length());
                             mButton.setText(selectedStr);
-                        }else {
+                        } else {
                             mButton.setText("请选择");
                         }
 
@@ -579,6 +609,13 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     @Override
     public void onCancelProgress() {
         dissmissProgressDialog();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
 

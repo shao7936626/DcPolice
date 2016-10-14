@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="基本信息"
+            android:text="场所信息"
             android:textColor="@color/blue"
             android:textSize="25dp" />
 
@@ -78,12 +78,20 @@
                     android:text="@string/belongplace"
                     android:textSize="@dimen/textSize" />
 
-                <EditText
-                    android:id="@+id/et_belongplace"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!--<EditText-->
+                    <!--android:id="@+id/et_belongplace"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
 
-                    />
+                    <!--/>-->
+
+                <Button
+                    android:id="@+id/btn_belongplace"
+                    android:layout_width="match_parent"
+                    android:text="@string/pleaseselector"
+                    android:textSize="@dimen/textSize"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout

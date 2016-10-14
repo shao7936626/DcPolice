@@ -307,36 +307,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textSize"
-                android:text="@string/workduaddress"
-                />
-            <EditText
-                android:id="@+id/et_rperson_workduaddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textSize"
-
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textSize"
                 android:text="@string/belongplace"
                 />
-            <EditText
-                android:id="@+id/et_rperson_belongplace"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textSize"
+            <!--<EditText-->
+                <!--android:id="@+id/et_rperson_belongplace"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/textSize"-->
 
-                />
+                <!--/>-->
+
+                <Button
+                    android:id="@+id/btn_belongplace"
+                    android:layout_width="match_parent"
+                    android:text="@string/pleaseselector"
+                    android:textSize="@dimen/textSize"
+                    android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -358,6 +344,27 @@
                 android:textSize="@dimen/textSize"
 
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize"
+                    android:text="@string/workduaddress"
+                    />
+                <EditText
+                    android:id="@+id/et_rperson_workduaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize"
+
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
