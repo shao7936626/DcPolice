@@ -12,6 +12,7 @@ public class Person  implements Serializable {
     public String name;
     public String sex;
     public String borndate;
+    private int unitname;
     public String QQ;
     public String weChat;
     public String IdCard;
