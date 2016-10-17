@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">德城公安</string>
     <string name="confirm">确定</string>
+
     <string name="rememberPassword">记住密码</string>
     <string name="username">姓名：</string>
+    <string name="department">录入部门：</string>
     <string name="personName">姓名：</string>
     <string name="policeNumber">警号：</string>
     <string name="sex">性别：</string>

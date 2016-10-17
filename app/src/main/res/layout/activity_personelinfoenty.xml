@@ -99,6 +99,54 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/personinfoleftSize"
                     android:layout_marginTop="@dimen/textmagtop"
+                    android:text="@string/department"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <Button
+                    android:id="@+id/btn_department"
+                    android:text="@string/pleaseselector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="@dimen/personinfoleftSize"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    />
+                
+                <!--<EditText-->
+                    <!--android:id="@+id/et_department"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:layout_marginRight="@dimen/personinfoleftSize"-->
+                    <!--android:layout_marginTop="@dimen/personinfotopSize"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:textSize="@dimen/textsize" />-->
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/personinfoSize"
+                android:layout_weight="1"
+                android:background="@drawable/infobar"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/personinfoleftSize"
+                    android:layout_marginTop="@dimen/textmagtop"
                     android:text="@string/personName"
                     android:textColor="@color/black"
                     android:textSize="20dp" />

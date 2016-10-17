@@ -3,7 +3,6 @@ package cn.onecloudtech.sl.dcpolice.ui.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.OrientationHelper;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker.OnDateSelectedListener;
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -39,7 +37,6 @@ import butterknife.OnClick;
 import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.adapter.PhotoAdapter;
-import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
 import cn.onecloudtech.sl.dcpolice.base.BaseApplication;
 import cn.onecloudtech.sl.dcpolice.http.HttpMethods;
 import cn.onecloudtech.sl.dcpolice.listener.RecyclerItemClickListener;
@@ -49,6 +46,7 @@ import cn.onecloudtech.sl.dcpolice.subscribers.ProgressSubscriber;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
+import cn.qqtheme.framework.picker.OptionPicker;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 import okhttp3.MediaType;
@@ -103,6 +101,8 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     RecyclerView bodyphotoRecyclerView;
     @Bind(R.id.btn_check)
     Button btnCheck;
+    @Bind(R.id.btn_department)
+    Button btnDepartment;
 
     private HashMap<String, EditText> mPersonEditMap;   //用来判断是否EditText为空的
     private HashMap<String, Button> mPersonBtnMap;
@@ -111,6 +111,8 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     private SubscriberOnNextListener getCheckPersonInfoOnNext;
     private static final int WHEELNORMAL = 0;
     private static final int WHEELDATE = 1;
+
+    private int unitname = -1;
 
     private RecyclerView facephoto_recyclerView;
     private RecyclerView bodyphoto_recyclerView;
@@ -222,8 +224,6 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
         initRecyclerViewAdapter(bodyphoto_recyclerView, bodyphotoAdapter);
 
 
-
-
         facephoto_recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -318,7 +318,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     }
 
 
-    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check})
+    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check,R.id.btn_department})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_sex:
@@ -417,7 +417,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                     map.put("birthday", setRequestBody(btnBorndate));
                     map.put("qq", setRequestBody(etPersonQq));
                     map.put("wechat", setRequestBody(etPersonWechat));
-
+                    map.put("unitname",setRequestBody(unitname));
                     map.put("idcard", setRequestBody(etPersonIdcard));
 
                     map.put("phone", setRequestBody(etPersonPhonenumber));
@@ -471,6 +471,10 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                 }
 
                 break;
+            case R.id.btn_department:
+                onOptionPicker();
+
+                break;
             case R.id.btn_check:
                 if (map.isEmpty() == false) {
                     map.clear();
@@ -479,6 +483,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                     map.put("realname", setRequestBody(etPersonName));
                     map.put("idcard", setRequestBody(etPersonIdcard));
                     map.put("userroleId", setRequestBody(((BaseApplication) getApplication()).getUser().getId()));
+                    map.put("unitname",setRequestBody(unitname));
                     addImage2Map("facepic", faceselectedPhotos);
 
 
@@ -504,6 +509,21 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                         .start(this);
                 break;
         }
+    }
+
+    public void onOptionPicker() {
+        OptionPicker picker = new OptionPicker(this,C.departmentList);
+        picker.setOffset(1); //1显示三条、2显示5条、3显示7条、4显示9条
+        picker.setSelectedIndex(0);
+        picker.setTextSize(20);
+        picker.setOnOptionPickListener(new OptionPicker.OnOptionPickListener() {
+            @Override
+            public void onOptionPicked(int position, String option) {
+//                showToast(option);
+                unitname = position;
+            }
+        });
+        picker.show();
     }
 
     class MyCountDownTimer extends CountDownTimer {
@@ -662,6 +682,12 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                 }
             }
         }
+
+        if(unitname == -1){
+            ToastUtil.showLong("请选择部门！");
+            return false;
+        }
+
         return true;
     }
 
