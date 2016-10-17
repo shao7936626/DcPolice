@@ -372,6 +372,8 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
                     floatingPropertyRecyclerView.setHasFixedSize(true);
 
                 } else if (position == 2) {
+                    addressList.clear();
+                    llFloatingProperty.setVisibility(View.GONE);
                     llRelationship.setVisibility(View.VISIBLE);
                 } else {
                     addressList.clear();

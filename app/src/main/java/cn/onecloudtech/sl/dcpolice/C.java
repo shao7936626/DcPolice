@@ -49,6 +49,8 @@ public class C {
 
     public static final String[] rtypeList = new String[]{"请选择", "房东", "房客", "业主", "从业人员"}; //1： 2： 3： 4：
 
+    public static final String[] departmentList = new String[]{"剪子股派出所","黄河涯派出所","东地派出所","新河东路派出所","于官屯派出所","建设街派出所","车站街派出所","湖滨北路派出所","二屯派出所","长庄派出所","刑警大队","巡警大队","治安大队","经侦大队"};
+
     public static final HashMap<Integer, String> RTYPELIST = new HashMap<Integer, String>();
 
 

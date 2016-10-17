@@ -1,104 +1,106 @@
 package cn.onecloudtech.sl.dcpolice.model;
 
 public class Jpushperson {
-	private Integer id;
+    private Integer id;
 
-	private String idcard;// 身份证
+    private String idcard;// 身份证
 
-	private String realname;// 真实姓名
+    private String realname;// 真实姓名
 
-	private String picurl;// 人脸照片地址
+    private String picurl;// 人脸照片地址
 
-	private Integer istrue;// 判断接口（0:错误，1：正确,其他:错误）
+    private int unitname;
 
-	private Integer userroleId;// 客户端用户id
+    private Integer istrue;// 判断接口（0:错误，1：正确,其他:错误）
 
-	private String checkstarttime;// 客户端前端上传判断信息时间
+    private Integer userroleId;// 客户端用户id
 
-	private String backcheckresulttime;// 平台判断后下发时间
+    private String checkstarttime;// 客户端前端上传判断信息时间
 
-	private Integer isoutoftime;// 是否超期
+    private String backcheckresulttime;// 平台判断后下发时间
 
-	private String remark;// 备注
+    private Integer isoutoftime;// 是否超期
 
-	public Integer getId() {
-		return id;
-	}
+    private String remark;// 备注
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getIdcard() {
-		return idcard;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setIdcard(String idcard) {
-		this.idcard = idcard == null ? null : idcard.trim();
-	}
+    public String getIdcard() {
+        return idcard;
+    }
 
-	public String getRealname() {
-		return realname;
-	}
+    public void setIdcard(String idcard) {
+        this.idcard = idcard == null ? null : idcard.trim();
+    }
 
-	public void setRealname(String realname) {
-		this.realname = realname == null ? null : realname.trim();
-	}
+    public String getRealname() {
+        return realname;
+    }
 
-	public String getPicurl() {
-		return picurl;
-	}
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
+    }
 
-	public void setPicurl(String picurl) {
-		this.picurl = picurl == null ? null : picurl.trim();
-	}
+    public String getPicurl() {
+        return picurl;
+    }
 
-	public Integer getIstrue() {
-		return istrue;
-	}
+    public void setPicurl(String picurl) {
+        this.picurl = picurl == null ? null : picurl.trim();
+    }
 
-	public void setIstrue(Integer istrue) {
-		this.istrue = istrue;
-	}
+    public Integer getIstrue() {
+        return istrue;
+    }
 
-	public Integer getUserroleId() {
-		return userroleId;
-	}
+    public void setIstrue(Integer istrue) {
+        this.istrue = istrue;
+    }
 
-	public void setUserroleId(Integer userroleId) {
-		this.userroleId = userroleId;
-	}
+    public Integer getUserroleId() {
+        return userroleId;
+    }
 
-	public String getCheckstarttime() {
-		return checkstarttime;
-	}
+    public void setUserroleId(Integer userroleId) {
+        this.userroleId = userroleId;
+    }
 
-	public void setCheckstarttime(String checkstarttime) {
-		this.checkstarttime = checkstarttime == null ? null : checkstarttime.trim();
-	}
+    public String getCheckstarttime() {
+        return checkstarttime;
+    }
 
-	public String getBackcheckresulttime() {
-		return backcheckresulttime;
-	}
+    public void setCheckstarttime(String checkstarttime) {
+        this.checkstarttime = checkstarttime == null ? null : checkstarttime.trim();
+    }
 
-	public void setBackcheckresulttime(String backcheckresulttime) {
-		this.backcheckresulttime = backcheckresulttime == null ? null : backcheckresulttime.trim();
-	}
+    public String getBackcheckresulttime() {
+        return backcheckresulttime;
+    }
 
-	public Integer getIsoutoftime() {
-		return isoutoftime;
-	}
+    public void setBackcheckresulttime(String backcheckresulttime) {
+        this.backcheckresulttime = backcheckresulttime == null ? null : backcheckresulttime.trim();
+    }
 
-	public void setIsoutoftime(Integer isoutoftime) {
-		this.isoutoftime = isoutoftime;
-	}
+    public Integer getIsoutoftime() {
+        return isoutoftime;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public void setIsoutoftime(Integer isoutoftime) {
+        this.isoutoftime = isoutoftime;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark == null ? null : remark.trim();
-	}
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
 
 }
