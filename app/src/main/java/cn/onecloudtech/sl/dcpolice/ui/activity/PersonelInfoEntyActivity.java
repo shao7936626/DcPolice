@@ -521,6 +521,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
             public void onOptionPicked(int position, String option) {
 //                showToast(option);
                 unitname = position;
+                btnDepartment.setText(option);
             }
         });
         picker.show();
