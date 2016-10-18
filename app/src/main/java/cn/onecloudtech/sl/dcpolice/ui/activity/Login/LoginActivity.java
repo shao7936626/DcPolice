@@ -71,6 +71,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
         // sp  记住密码
 
 
+
+
         mSharedPreferenceUtil = SharedPreferenceUtil.getInstance();
         if (mSharedPreferenceUtil.getRemPassWd()) {
             etAccount.setText(mSharedPreferenceUtil.getUserName());
@@ -140,6 +142,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     private void checkUpdate() {
         currentVersionName = Util.getVersion(this);
+        ToastUtil.showLong("当前版本是"+currentVersionName);
         getFetchVersionOnNext = new SubscriberOnNextListener<UpdateData>() {
             @Override
             public void onNext(UpdateData mUpdateData) {
