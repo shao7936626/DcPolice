@@ -4,7 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.dodola.rocoofix.RocooFix;
+
 import cn.jpush.android.api.JPushInterface;
+import cn.onecloudtech.sl.dcpolice.hotfix.HotFixManger;
 import cn.onecloudtech.sl.dcpolice.model.Person;
 import cn.onecloudtech.sl.dcpolice.model.User;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
@@ -20,7 +23,7 @@ public class BaseApplication extends Application {
     public static String cacheDir;
     public static Context mAppContext = null;
     public static User user;
-    private SubscriberOnNextListener getFetchVersionOnNext;
+  
 
     private static BaseApplication baseApplication;
 
@@ -39,6 +42,8 @@ public class BaseApplication extends Application {
         mAppContext = getApplicationContext();
         baseApplication = this;
         SpUtil.init(this);
+
+        HotFixManger.updatePatchJar();
         JPushInterface.setDebugMode(true);
 
 
