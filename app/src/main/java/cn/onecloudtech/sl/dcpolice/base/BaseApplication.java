@@ -7,12 +7,18 @@ import android.support.v7.app.AppCompatDelegate;
 import com.dodola.rocoofix.RocooFix;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.hotfix.HotFixManger;
 import cn.onecloudtech.sl.dcpolice.model.Person;
+import cn.onecloudtech.sl.dcpolice.model.UpdateData;
 import cn.onecloudtech.sl.dcpolice.model.User;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
+import cn.onecloudtech.sl.dcpolice.ui.activity.Login.LoginActivity;
 import cn.onecloudtech.sl.dcpolice.utils.CheckVersion;
+import cn.onecloudtech.sl.dcpolice.utils.MAppManager;
 import cn.onecloudtech.sl.dcpolice.utils.SpUtil;
+import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
+import cn.onecloudtech.sl.dcpolice.utils.Util;
 
 
 /**
@@ -23,7 +29,9 @@ public class BaseApplication extends Application {
     public static String cacheDir;
     public static Context mAppContext = null;
     public static User user;
-  
+    private String currentVersionName;
+    private int currentVersionCode;
+    private SubscriberOnNextListener getFetchVersionOnNext;
 
     private static BaseApplication baseApplication;
 
@@ -42,10 +50,10 @@ public class BaseApplication extends Application {
         mAppContext = getApplicationContext();
         baseApplication = this;
         SpUtil.init(this);
-
-        HotFixManger.updatePatchJar();
+        MAppManager.init(this);
+//        HotFixManger.updatePatchJar();
         JPushInterface.setDebugMode(true);
-
+//        checkUpdate();
 
         // 初始化 retrofit
 //        RetrofitSingleton.init();
@@ -65,6 +73,30 @@ public class BaseApplication extends Application {
         } else {
             cacheDir = getApplicationContext().getCacheDir().toString();
         }
+    }
+
+    private void checkUpdate() {
+        currentVersionName = Util.getVersion(this);
+        currentVersionCode = Util.getVersionCode(this);
+        ToastUtil.showLong("当前版本是"+currentVersionName);
+        getFetchVersionOnNext = new SubscriberOnNextListener<UpdateData>() {
+            @Override
+            public void onNext(UpdateData mUpdateData) {
+                if (mUpdateData != null) {
+                    System.out.println(C.TAG + "version from server is " + mUpdateData.getVersionname() + mUpdateData.getVersionshort());
+                    if (currentVersionName.compareTo(mUpdateData.getVersionshort()) < 0) {
+                        CheckVersion.showUpdateDialog(mUpdateData,mAppContext);
+                    } else {
+
+                    }
+                    if(currentVersionCode < mUpdateData.getVersioncode() ){
+                        HotFixManger.updatePatchJar(mAppContext);
+                    }
+                }
+            }
+        };
+
+        CheckVersion.checkVersion(this, getFetchVersionOnNext);
     }
 
     public void setJPush() {

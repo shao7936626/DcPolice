@@ -46,7 +46,7 @@ public class HotFixManger {
     /**
      * 需要更新patch文件的时候调用
      */
-    public static void updatePatchJar(){
-        PatchManger.globalPatchManger.get().patchDownloader.downloadPatch();
+    public static void updatePatchJar(Context mContext){
+        PatchManger.globalPatchManger.get().patchDownloader.downloadPatch(mContext);
     }
 }

@@ -1,5 +1,7 @@
 package cn.onecloudtech.sl.dcpolice.hotfix.ImPatch;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.androidquery.AQuery;
@@ -9,6 +11,7 @@ import com.androidquery.callback.AjaxStatus;
 
 import java.io.File;
 
+import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.hotfix.IPatch.IPatchDownloader;
 import cn.onecloudtech.sl.dcpolice.hotfix.PatchManger;
 import cn.onecloudtech.sl.dcpolice.utils.MAppManager;
@@ -20,14 +23,17 @@ import cn.onecloudtech.sl.dcpolice.utils.MAppManager;
 public class DefaultPatchDownloader implements IPatchDownloader {
     public static final String TAG = "DefaultPatchDownloader";
 
+    private Context mContext;
+
     @Override
-    public void downloadPatch() {
+    public void downloadPatch(Context mContext) {
+        this.mContext = mContext;
         downloadRemotePach();
     }
 
     @Override
     public String getUrl() {
-        return "";
+        return C.UPDATEPATCHURL;
     }
 
     /**
@@ -49,9 +55,12 @@ public class DefaultPatchDownloader implements IPatchDownloader {
                     super.callback(url, object, status);
                     if (status.getCode() == 200) {
                         File current = PatchManger.globalPatchManger.get().patchFileDir.getCurrentPatchJar();
-                        if (current.exists() && current.delete()) {
+                        if (current.exists() ) {
                             object.renameTo(current);
                         }
+                        Intent intent = new Intent();
+                        intent.setAction("cn.onecloudtech.sl.dcpolice");
+                        mContext.sendBroadcast(intent);
                         Log.d(TAG, "down load patch success ");
                     } else {
                         Log.e(TAG, "down load patch  error" + status.getMessage());

@@ -19,6 +19,7 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
+-keepattributes InnerClasses
 -keep class com.dodola.rocoofix.** {*;}
 -keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Activity
@@ -81,3 +82,5 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
+-keep interface cn.onecloudtech.sl.dcpolice.ui.activity.Login.** { *; }
