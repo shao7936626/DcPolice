@@ -12,6 +12,7 @@ import cn.onecloudtech.sl.dcpolice.model.Person;
 import cn.onecloudtech.sl.dcpolice.model.User;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
 import cn.onecloudtech.sl.dcpolice.utils.CheckVersion;
+import cn.onecloudtech.sl.dcpolice.utils.MAppManager;
 import cn.onecloudtech.sl.dcpolice.utils.SpUtil;
 
 
@@ -42,7 +43,7 @@ public class BaseApplication extends Application {
         mAppContext = getApplicationContext();
         baseApplication = this;
         SpUtil.init(this);
-
+        MAppManager.init(this);
         HotFixManger.updatePatchJar();
         JPushInterface.setDebugMode(true);
 
