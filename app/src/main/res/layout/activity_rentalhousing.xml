@@ -6,6 +6,10 @@
 
     <include layout="@layout/util_head_view" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
     <ScrollView
 
         android:layout_width="match_parent"
@@ -35,8 +39,8 @@
                 android:textColor="#0057F4" />
         </LinearLayout>
     </ScrollView>
+    </LinearLayout>
 
-
-
+    <include layout="@layout/util_ifly_beta" />
 
 </LinearLayout>

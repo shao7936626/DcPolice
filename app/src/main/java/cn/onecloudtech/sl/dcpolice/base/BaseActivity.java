@@ -46,10 +46,13 @@ public abstract class BaseActivity <T extends BasePresenter, E extends BaseModel
         this.doInitView();
         this.initView();
         this.didInitView();
+
         if (this instanceof BaseView) mPresenter.setVM(this, mModel);
 
 
     }
+
+
 
     public abstract int getLayoutId();
 
@@ -57,7 +60,9 @@ public abstract class BaseActivity <T extends BasePresenter, E extends BaseModel
 
     public abstract void doInitView();
 
-    public abstract void didInitView();
+    public abstract void didInitView(
+            
+    );
 
     public void stopPush() {
         if (JPushInterface.isPushStopped(getApplicationContext()) == false) {

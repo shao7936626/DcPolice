@@ -643,10 +643,8 @@
            <!--/>-->
     <!--</RelativeLayout>-->
 </LinearLayout>
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "测试"
-        />
+
+    <include layout="@layout/util_ifly_beta" />
+
+
 </LinearLayout>

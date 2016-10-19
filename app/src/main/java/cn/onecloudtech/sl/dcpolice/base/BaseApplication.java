@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.dodola.rocoofix.RocooFix;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.onecloudtech.sl.dcpolice.C;
@@ -53,6 +55,8 @@ public class BaseApplication extends Application {
         MAppManager.init(this);
 //        HotFixManger.updatePatchJar();
         JPushInterface.setDebugMode(true);
+
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5806d051");
 //        checkUpdate();
 
         // 初始化 retrofit

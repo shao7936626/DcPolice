@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">德城公安</string>
     <string name="confirm">确定</string>
-
+    <string name="ifly">语音输入beta</string>
     <string name="rememberPassword">记住密码</string>
     <string name="username">姓名：</string>
     <string name="department">录入部门：</string>
@@ -39,6 +39,7 @@
     <string name="checkpersoninfo">判断</string>
     <string name="rentalhousing">地点场所登记</string>
     <string name="floatingpopulation">相关人口信息登记</string>
+
 
 
     <string name="isRentalHousing">是否为出租房:</string>

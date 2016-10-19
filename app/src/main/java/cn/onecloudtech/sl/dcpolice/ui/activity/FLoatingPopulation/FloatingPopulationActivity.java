@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.adapter.FloatingPopulationPropertyAdapter;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
-import cn.onecloudtech.sl.dcpolice.model.LinkageItem;
+import cn.onecloudtech.sl.dcpolice.iFly.IFlyManager;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
@@ -38,7 +39,6 @@ import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
 import cn.qqtheme.framework.picker.AddressPicker;
-import cn.qqtheme.framework.picker.LinkagePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -46,7 +46,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, FloatingPopulationPropertyAdapter.SaveEditListener, ProgressCancelListener {
+public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationPresenter, FloatingPopulationModel> implements FloatingPopulationContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, FloatingPopulationPropertyAdapter.SaveEditListener, ProgressCancelListener, View.OnFocusChangeListener {
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.btn_rtype)
@@ -99,11 +99,13 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     LinearLayout llRelationship;
     @Bind(R.id.btn_belongplace)
     Button btnBelongplace;
+    @Bind(R.id.btn_ifly)
+    Button btnIfly;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
     private Integer ispermit = 0;
-
+    private EditText selectedEditText;
     //    private SubscriberOnNextListener getUploadFloatingInfoOnNext;
     private ProgressDialogHandler mProgressDialogHandler;
 
@@ -160,7 +162,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
     @Override
     public void didInitView() {
-
+        InitOnFocusChangeListener();
     }
 
     @Override
@@ -193,7 +195,7 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     }
 
 
-    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation, R.id.btn_add_address, R.id.btn_belongplace})
+    @OnClick({R.id.btn_rtype, R.id.btn_rperson_sex, R.id.btn_rperson_bornDate, R.id.btn_upload_Foaltingpopulation, R.id.btn_add_address, R.id.btn_belongplace,R.id.btn_ifly})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_rtype:
@@ -221,6 +223,11 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
 
                 onLinkagePicker();
 
+                break;
+
+            case R.id.btn_ifly:
+                IFlyManager iFlyManager = IFlyManager.getInstance(this);
+                iFlyManager.btnVoice(selectedEditText);
                 break;
             default:
                 break;
@@ -409,6 +416,48 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
         ButterKnife.bind(this);
     }
 
+
+    private void InitOnFocusChangeListener() {
+        List<View > allViews = getAllChildViews();
+        for(View v :allViews){
+            if(v instanceof EditText){
+                v.setOnFocusChangeListener(this);
+            }
+        }
+    }
+
+    public List<View> getAllChildViews() {
+
+        View view = this.getWindow().getDecorView();
+
+        return getAllChildViews(view);
+
+    }
+
+    private List<View> getAllChildViews(View view) {
+
+        List<View> allchildren = new ArrayList<View>();
+
+        if (view instanceof ViewGroup) {
+
+            ViewGroup vp = (ViewGroup) view;
+
+            for (int i = 0; i < vp.getChildCount(); i++) {
+
+                View viewchild = vp.getChildAt(i);
+
+                allchildren.add(viewchild);
+
+                allchildren.addAll(getAllChildViews(viewchild));
+
+            }
+
+        }
+
+        return allchildren;
+
+    }
+
     @Override
     public void SaveEdit(int position, String string) {
         addressList.set(position, string);
@@ -417,5 +466,17 @@ public class FloatingPopulationActivity extends BaseActivity<FloatingPopulationP
     @Override
     public void onCancelProgress() {
         dissmissProgressDialog();
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view instanceof EditText) {
+            if (hasFocus) {
+                selectedEditText = (EditText) view;
+                btnIfly.setVisibility(View.VISIBLE);
+            } else {
+                btnIfly.setVisibility(View.GONE);
+            }
+        }
     }
 }

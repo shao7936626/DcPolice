@@ -32,9 +32,11 @@ import butterknife.OnClick;
 import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
+import cn.onecloudtech.sl.dcpolice.iFly.IFlyManager;
 import cn.onecloudtech.sl.dcpolice.model.UploadResult;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressCancelListener;
 import cn.onecloudtech.sl.dcpolice.progress.ProgressDialogHandler;
+import cn.onecloudtech.sl.dcpolice.ui.activity.PersonelInfoEntyActivity;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
@@ -47,7 +49,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/9/29.
  */
-public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, RentalHousingModel> implements RentalHousingContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, ProgressCancelListener {
+public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, RentalHousingModel> implements RentalHousingContract.View, WheelPicker.OnItemSelectedListener, WheelDatePicker.OnDateSelectedListener, ProgressCancelListener, View.OnFocusChangeListener {
     @Bind(R.id.tv_head)
     TextView tvHead;
     @Bind(R.id.sb_isrental)
@@ -116,6 +118,8 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     Button btnUploadRental;
     @Bind(R.id.btn_belongplace)
     Button btnBelongplace;
+    @Bind(R.id.btn_ifly)
+    Button btnIfly;
 
 
     private Map<String, RequestBody> map = new HashMap<>();
@@ -171,7 +175,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
     @Override
     public void didInitView() {
-
+        InitOnFocusChangeListener();
     }
 
     @Override
@@ -184,6 +188,48 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
             ToastUtil.showLong("上传失败");
         }
     }
+
+    private void InitOnFocusChangeListener() {
+        List<View> allViews = getAllChildViews();
+        for (View v : allViews) {
+            if (v instanceof EditText) {
+                v.setOnFocusChangeListener(this);
+            }
+        }
+    }
+
+    public List<View> getAllChildViews() {
+
+        View view = this.getWindow().getDecorView();
+
+        return getAllChildViews(view);
+
+    }
+
+    private List<View> getAllChildViews(View view) {
+
+        List<View> allchildren = new ArrayList<View>();
+
+        if (view instanceof ViewGroup) {
+
+            ViewGroup vp = (ViewGroup) view;
+
+            for (int i = 0; i < vp.getChildCount(); i++) {
+
+                View viewchild = vp.getChildAt(i);
+
+                allchildren.add(viewchild);
+
+                allchildren.addAll(getAllChildViews(viewchild));
+
+            }
+
+        }
+
+        return allchildren;
+
+    }
+
 
     @Override
     public void showProgressDialog() {
@@ -204,7 +250,7 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
     }
 
 
-    @OnClick({R.id.btn_placetype, R.id.btn_serviceplacetype, R.id.btn_firefacilities, R.id.btn_protectcondition, R.id.btn_opentime, R.id.btn_upload_rental,R.id.btn_belongplace})
+    @OnClick({R.id.btn_placetype, R.id.btn_serviceplacetype, R.id.btn_firefacilities, R.id.btn_protectcondition, R.id.btn_opentime, R.id.btn_upload_rental, R.id.btn_belongplace,R.id.btn_ifly})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_placetype:
@@ -234,6 +280,10 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
             case R.id.btn_belongplace:
                 onLinkagePicker();
                 break;
+            case R.id.btn_ifly:
+                IFlyManager iFlyManager = IFlyManager.getInstance(this);
+                iFlyManager.btnVoice(selectedEditText);
+                 break;
             default:
                 break;
         }
@@ -318,37 +368,6 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
     }
 
-
-    public List<View> getAllChildViews() {
-
-        View view = this.getWindow().getDecorView();
-
-        return getAllChildViews(view);
-
-    }
-
-    private List<View> getAllChildViews(View view) {
-
-        List<View> allchildren = new ArrayList<View>();
-
-        if (view instanceof ViewGroup) {
-
-            ViewGroup vp = (ViewGroup) view;
-
-            for (int i = 0; i < vp.getChildCount(); i++) {
-
-                View viewchild = vp.getChildAt(i);
-
-                allchildren.add(viewchild);
-
-                allchildren.addAll(getAllChildViews(viewchild));
-
-            }
-        }
-
-        return allchildren;
-
-    }
 
     private Method getMethodFromName(Class cls, String name) throws NoSuchMethodException {
         Method method = null;
@@ -616,6 +635,20 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    private EditText selectedEditText;
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (view instanceof EditText) {
+            if (hasFocus) {
+                selectedEditText = (EditText) view;
+                btnIfly.setVisibility(View.VISIBLE);
+            } else {
+                btnIfly.setVisibility(View.GONE);
+            }
+        }
     }
 }
 

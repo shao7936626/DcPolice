@@ -10,15 +10,26 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker;
 import com.aigestudio.wheelpicker.widgets.WheelDatePicker.OnDateSelectedListener;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -39,11 +50,13 @@ import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.adapter.PhotoAdapter;
 import cn.onecloudtech.sl.dcpolice.base.BaseApplication;
 import cn.onecloudtech.sl.dcpolice.http.HttpMethods;
+import cn.onecloudtech.sl.dcpolice.iFly.IFlyManager;
 import cn.onecloudtech.sl.dcpolice.listener.RecyclerItemClickListener;
 import cn.onecloudtech.sl.dcpolice.model.CheckPerson;
 import cn.onecloudtech.sl.dcpolice.model.Person;
 import cn.onecloudtech.sl.dcpolice.subscribers.ProgressSubscriber;
 import cn.onecloudtech.sl.dcpolice.subscribers.SubscriberOnNextListener;
+import cn.onecloudtech.sl.dcpolice.ui.activity.FLoatingPopulation.FloatingPopulationActivity;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
 import cn.qqtheme.framework.picker.OptionPicker;
@@ -56,7 +69,7 @@ import okhttp3.RequestBody;
 /**
  * Created by Administrator on 2016/7/22.
  */
-public class PersonelInfoEntyActivity extends Activity implements WheelPicker.OnItemSelectedListener, OnDateSelectedListener {
+public class PersonelInfoEntyActivity extends Activity implements WheelPicker.OnItemSelectedListener, OnDateSelectedListener, View.OnFocusChangeListener {
 
 
     @Bind(R.id.btn_sex)
@@ -103,6 +116,8 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     Button btnCheck;
     @Bind(R.id.btn_department)
     Button btnDepartment;
+    @Bind(R.id.btn_ifly)
+    Button btnIfly;
 
     private HashMap<String, EditText> mPersonEditMap;   //用来判断是否EditText为空的
     private HashMap<String, Button> mPersonBtnMap;
@@ -122,6 +137,8 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     private ArrayList<String> bodyselectedPhotos = new ArrayList<>();
     private Map<String, RequestBody> map = new HashMap<>();
     private int photoPickerState = 0;
+
+    private EditText selectedEditText;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -203,10 +220,59 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
         initData();
         initRecyclerViews();
 
+        InitOnFocusChangeListener();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+
+
+    private void InitOnFocusChangeListener() {
+//        etPersonName.setOnFocusChangeListener(this);
+        List<View > allViews = getAllChildViews();
+        for(View v :allViews){
+            if(v instanceof EditText){
+                v.setOnFocusChangeListener(this);
+            }
+        }
+    }
+
+
+
+
+    public List<View> getAllChildViews() {
+
+        View view = this.getWindow().getDecorView();
+
+        return getAllChildViews(view);
+
+    }
+
+    private List<View> getAllChildViews(View view) {
+
+        List<View> allchildren = new ArrayList<View>();
+
+        if (view instanceof ViewGroup) {
+
+            ViewGroup vp = (ViewGroup) view;
+
+            for (int i = 0; i < vp.getChildCount(); i++) {
+
+                View viewchild = vp.getChildAt(i);
+
+                allchildren.add(viewchild);
+
+                allchildren.addAll(getAllChildViews(viewchild));
+
+            }
+
+        }
+
+        return allchildren;
+
     }
 
     private void initRecyclerViews() {
@@ -318,7 +384,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     }
 
 
-    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check,R.id.btn_department})
+    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check, R.id.btn_department,R.id.btn_ifly})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_sex:
@@ -417,7 +483,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                     map.put("birthday", setRequestBody(btnBorndate));
                     map.put("qq", setRequestBody(etPersonQq));
                     map.put("wechat", setRequestBody(etPersonWechat));
-                    map.put("unitname",setRequestBody(unitname));
+                    map.put("unitname", setRequestBody(unitname));
                     map.put("idcard", setRequestBody(etPersonIdcard));
 
                     map.put("phone", setRequestBody(etPersonPhonenumber));
@@ -483,7 +549,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                     map.put("realname", setRequestBody(etPersonName));
                     map.put("idcard", setRequestBody(etPersonIdcard));
                     map.put("userroleId", setRequestBody(((BaseApplication) getApplication()).getUser().getId()));
-                    map.put("unitname",setRequestBody(unitname));
+                    map.put("unitname", setRequestBody(unitname));
                     addImage2Map("facepic", faceselectedPhotos);
 
 
@@ -508,11 +574,64 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                         .setPhotoCount(1)
                         .start(this);
                 break;
+            case R.id.btn_ifly:
+                IFlyManager iFlyManager = IFlyManager.getInstance(this);
+                iFlyManager.btnVoice(selectedEditText);
+                break;
+                default:
+                    break;
         }
     }
 
+    private void btnVoice() {
+        RecognizerDialog dialog = new RecognizerDialog(this,null);
+        dialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        dialog.setParameter(SpeechConstant.ACCENT, "mandarin");
+
+        dialog.setListener(new RecognizerDialogListener() {
+            @Override
+            public void onResult(RecognizerResult recognizerResult, boolean b) {
+                printResult(recognizerResult);
+            }
+            @Override
+            public void onError(SpeechError speechError) {
+            }
+        });
+        dialog.show();
+        Toast.makeText(this, "请开始说话", Toast.LENGTH_SHORT).show();
+    }
+
+    private void printResult(RecognizerResult results) {
+        String text = parseIatResult(results.getResultString());
+        // 自动填写地址
+
+        selectedEditText.append(text);
+
+    }
+
+    public static String parseIatResult(String json) {
+        StringBuffer ret = new StringBuffer();
+        try {
+            JSONTokener tokener = new JSONTokener(json);
+            JSONObject joResult = new JSONObject(tokener);
+
+            JSONArray words = joResult.getJSONArray("ws");
+            for (int i = 0; i < words.length(); i++) {
+                // 转写结果词，默认使用第一个结果
+                JSONArray items = words.getJSONObject(i).getJSONArray("cw");
+                JSONObject obj = items.getJSONObject(0);
+                ret.append(obj.getString("w"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(ret.toString().equals("。"))
+            return "";
+        return ret.toString();
+    }
+
     public void onOptionPicker() {
-        OptionPicker picker = new OptionPicker(this,C.departmentList);
+        OptionPicker picker = new OptionPicker(this, C.departmentList);
         picker.setOffset(1); //1显示三条、2显示5条、3显示7条、4显示9条
         picker.setSelectedIndex(0);
         picker.setTextSize(20);
@@ -525,6 +644,19 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
             }
         });
         picker.show();
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+
+        if (view instanceof EditText) {
+            if (hasFocus) {
+                selectedEditText = (EditText)view;
+                btnIfly.setVisibility(View.VISIBLE);
+            } else {
+                btnIfly.setVisibility(View.GONE);
+            }
+        }
     }
 
     class MyCountDownTimer extends CountDownTimer {
@@ -684,7 +816,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
             }
         }
 
-        if(unitname == -1){
+        if (unitname == -1) {
             ToastUtil.showLong("请选择部门！");
             return false;
         }

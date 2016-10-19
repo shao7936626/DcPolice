@@ -144,7 +144,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     private void checkUpdate() {
         currentVersionName = Util.getVersion(this);
         currentVersionCode = Util.getVersionCode(this);
-        ToastUtil.showLong("测试补丁"+"当前版本:"+currentVersionName+"   版本号:"+currentVersionCode);
+//        ToastUtil.showLong("当前版本:"+currentVersionName+"   版本号:"+currentVersionCode);
         getFetchVersionOnNext = new SubscriberOnNextListener<UpdateData>() {
             @Override
             public void onNext(UpdateData mUpdateData) {
