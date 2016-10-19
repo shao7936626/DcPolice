@@ -9,12 +9,21 @@ public class UpdateData {
     private int id;
     private String versionname;
     private String versionshort;
+    private int versioncode;
     public String updateurl;
 
 
     public String getUpdateUrl() {
         return C.SERVER_IP + C.SERVER_PORT + C.SERVICE_NAME + updateurl;
         //return updateUrl;
+    }
+
+    public int getVersioncode() {
+        return versioncode;
+    }
+
+    public void setVersioncode(int versioncode) {
+        this.versioncode = versioncode;
     }
 
     public void setUpdateUrl(String updateurl) {

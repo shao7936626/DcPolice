@@ -54,6 +54,12 @@
 
 
 
+        <receiver android:name=".receiver.UpdateInfoReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.onecloudtech.sl.dcpolice"/>
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"

@@ -17,6 +17,7 @@ import cn.onecloudtech.sl.dcpolice.C;
 import cn.onecloudtech.sl.dcpolice.R;
 import cn.onecloudtech.sl.dcpolice.base.BaseActivity;
 import cn.onecloudtech.sl.dcpolice.base.BaseApplication;
+import cn.onecloudtech.sl.dcpolice.hotfix.HotFixManger;
 import cn.onecloudtech.sl.dcpolice.http.HttpMethods;
 import cn.onecloudtech.sl.dcpolice.model.UpdateData;
 import cn.onecloudtech.sl.dcpolice.model.User;
@@ -37,7 +38,7 @@ import rx.Subscriber;
 /**
  * Created by Administrator on 2016/7/18.
  */
-public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View ,ProgressCancelListener {
+public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> implements LoginContract.View ,ProgressCancelListener {
 
 
     @Bind(R.id.btn_login)
@@ -54,7 +55,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     private SubscriberOnNextListener getFetchVersionOnNext;
 
     private ProgressDialogHandler mProgressDialogHandler;
-
+    private int currentVersionCode;
     private Subscriber subscriber;
     private boolean rememberPasswd;
     public SharedPreferenceUtil mSharedPreferenceUtil = null;
@@ -142,7 +143,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     private void checkUpdate() {
         currentVersionName = Util.getVersion(this);
-        ToastUtil.showLong("当前版本是"+currentVersionName);
+        currentVersionCode = Util.getVersionCode(this);
+        ToastUtil.showLong("测试补丁"+"当前版本:"+currentVersionName+"   版本号:"+currentVersionCode);
         getFetchVersionOnNext = new SubscriberOnNextListener<UpdateData>() {
             @Override
             public void onNext(UpdateData mUpdateData) {
@@ -152,6 +154,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
                         CheckVersion.showUpdateDialog(mUpdateData, LoginActivity.this);
                     } else {
 
+                    }
+                    if(currentVersionCode < mUpdateData.getVersioncode() ){
+                        HotFixManger.updatePatchJar(LoginActivity.this);
                     }
                 }
             }

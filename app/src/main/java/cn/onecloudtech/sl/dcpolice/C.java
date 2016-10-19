@@ -19,7 +19,7 @@ public class C {
     public static final String SERVER_PORT = ":8080";
     public static final String SERVICE_NAME = "/dchcService/";
 
-    public static final String UPDATEPATCHURL = "";
+    public static final String UPDATEPATCHURL = SERVER_IP+SERVER_PORT+SERVICE_NAME+"patch/"+"patch.jar";
 
     public static final String[] persontypeList = new String[]{"请选择", "赌博人员", "涉恶人员", "食药环人员", "涉毒人员", "留置盘问", "侵财人员", "刑事传唤", "负案在逃人员", "维稳人员", "失踪人员", "侵财人员分析", "技术比中人员", "社会人员"};
     public static final HashMap<Integer, String> PERSONTYPE = new HashMap<Integer, String>();
