@@ -8,7 +8,7 @@ import rx.Observable;
 /**
  * Created by Administrator on 2016/9/19.
  */
-public class LoginModel implements Model {
+public class LoginModel implements LoginContract.Model {
     @Override
     public Observable<User> login(String name, String pass) {
         return Api.getInstance().service
