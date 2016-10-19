@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in C:\Users\Administrator\AppData\Local\Android\Sdk/tools/proguard/proguard-android.txt
+
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
@@ -15,7 +15,36 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#-------------------------------------------定制化区域----------------------------------------------
+#---------------------------------1.实体类---------------------------------
 
+-keepclasseswithmembernames class cn.onecloudtech.sl.dcpolice.C
+
+#-------------------------------------------------------------------------
+
+#---------------------------------2.第三方包-------------------------------
+
+
+
+#-------------------------------------------------------------------------
+
+#---------------------------------3.与js互相调用的类------------------------
+
+
+
+#-------------------------------------------------------------------------
+
+#---------------------------------4.反射相关的类和方法-----------------------
+
+-keepclasseswithmembernames class cn.onecloudtech.sl.dcpolice.ui.activity.**{*;}
+-keep class cn.onecloudtech.sl.dcpolice.ui.activity.**{*;}
+
+
+#----------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
+
+#-------------------------------------------基本不用动区域--------------------------------------------
+#---------------------------------基本指令区----------------------------------
 -optimizationpasses 5
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
@@ -26,20 +55,13 @@
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
-
--keepattributes Exceptions
--keepattributes InnerClasses
--keep class com.dodola.rocoofix.** {*;}
--keep public class * extends android.app.Fragment
-
 -keepattributes SourceFile,LineNumberTable
+#----------------------------------------------------------------------------
 
 #---------------------------------默认保留区---------------------------------
-
 -keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
+-keep public class * extends android.app.Appliction
 -keep public class * extends android.app.Service
--keep public class * extends android.app.Fragment
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
@@ -47,9 +69,6 @@
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
-
-
-
 
 -keepclasseswithmembernames class * {
     native <methods>;
@@ -91,29 +110,30 @@
 }
 #----------------------------------------------------------------------------
 
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature
--keepattributes Exceptions
--keep class com.dodola.rocoofix.** {*;}
+#---------------------------------webview------------------------------------
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, jav.lang.String);
+}
+#----------------------------------------------------------------------------
 
--keepattributes *Annotation*
--keepattributes *annotation*
 -dontwarn java.lang.invoke.*
--keep class javax.*
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.app.** { *; }
--keep public class * extends android.support.v4.**
--keep public class * extends android.support.v13.**
--keep class android.support.v13.** { *; }
--keep class android.support.v7.** { *; }
 -dontwarn com.squareup.**
 -dontwarn okio.**
 -keep public class org.codehaus.* { *; }
 -keep public class java.nio.* { *; }
--keepclassmembers class cn.onecloudtech.sl.dcpolice.** {
-  public <init>();
-}
+
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
  long producerIndex;
@@ -125,6 +145,8 @@
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
  rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
+
+#---------------butterknife--------------------------------------------------
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -136,13 +158,9 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
--dontwarn sun.misc.**
-
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
-}
-
-
-
+#----------------------------------------------------------------------------
+#---------------ifly--------------------------------------------------
+-keep class com.iflytek.**{*;}
+#----------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 
