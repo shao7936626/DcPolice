@@ -3,8 +3,10 @@ package cn.onecloudtech.sl.dcpolice.ui.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -60,6 +62,7 @@ import cn.onecloudtech.sl.dcpolice.ui.activity.FLoatingPopulation.FloatingPopula
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
 import cn.qqtheme.framework.picker.OptionPicker;
+import droidninja.filepicker.FilePickerBuilder;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 import okhttp3.MediaType;
@@ -137,7 +140,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     private ArrayList<String> bodyselectedPhotos = new ArrayList<>();
     private Map<String, RequestBody> map = new HashMap<>();
     private int photoPickerState = 0;
-
+    private int currentClickId = -1;
     private EditText selectedEditText;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -229,18 +232,15 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     }
 
 
-
     private void InitOnFocusChangeListener() {
 //        etPersonName.setOnFocusChangeListener(this);
-        List<View > allViews = getAllChildViews();
-        for(View v :allViews){
-            if(v instanceof EditText){
+        List<View> allViews = getAllChildViews();
+        for (View v : allViews) {
+            if (v instanceof EditText) {
                 v.setOnFocusChangeListener(this);
             }
         }
     }
-
-
 
 
     public List<View> getAllChildViews() {
@@ -384,8 +384,9 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
     }
 
 
-    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check, R.id.btn_department,R.id.btn_ifly})
+    @OnClick({R.id.btn_sex, R.id.btn_borndate, R.id.btn_person_entrySense, R.id.btn_person_type, R.id.btn_upload, R.id.btn_facephoto, R.id.btn_bodyphoto, R.id.btn_check, R.id.btn_department, R.id.btn_ifly})
     public void onClick(View view) {
+        currentClickId = view.getId();
         switch (view.getId()) {
             case R.id.btn_sex:
 //                outerView = LayoutInflater.from(PersonelInfoEntyActivity.this).inflate(R.layout.sex_wheel_view, null);
@@ -567,24 +568,51 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
                 PhotoPicker.builder()
                         .setPhotoCount(1)
                         .start(this);
+
+
                 break;
             case R.id.btn_bodyphoto:
                 photoPickerState = 1;
                 PhotoPicker.builder()
                         .setPhotoCount(1)
                         .start(this);
+
                 break;
             case R.id.btn_ifly:
                 IFlyManager iFlyManager = IFlyManager.getInstance(this);
                 iFlyManager.btnVoice(selectedEditText);
                 break;
-                default:
-                    break;
+            default:
+                break;
+
         }
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (currentClickId != -1)
+                onClick(findViewById(currentClickId));
+        } else {
+            // permission denied, boo! Disable the
+            // functionality that depends on this permission.
+            Toast.makeText(this, "No read storage permission! Cannot perform the action.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+        // No need to explain to user as it is obvious
+        return false;
+    }
+
     private void btnVoice() {
-        RecognizerDialog dialog = new RecognizerDialog(this,null);
+        RecognizerDialog dialog = new RecognizerDialog(this, null);
         dialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
         dialog.setParameter(SpeechConstant.ACCENT, "mandarin");
 
@@ -593,6 +621,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
             public void onResult(RecognizerResult recognizerResult, boolean b) {
                 printResult(recognizerResult);
             }
+
             @Override
             public void onError(SpeechError speechError) {
             }
@@ -625,7 +654,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(ret.toString().equals("。"))
+        if (ret.toString().equals("。"))
             return "";
         return ret.toString();
     }
@@ -651,7 +680,7 @@ public class PersonelInfoEntyActivity extends Activity implements WheelPicker.On
 
         if (view instanceof EditText) {
             if (hasFocus) {
-                selectedEditText = (EditText)view;
+                selectedEditText = (EditText) view;
                 btnIfly.setVisibility(View.VISIBLE);
             } else {
                 btnIfly.setVisibility(View.GONE);

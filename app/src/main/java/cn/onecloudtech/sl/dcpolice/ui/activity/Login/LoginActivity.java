@@ -1,9 +1,13 @@
 package cn.onecloudtech.sl.dcpolice.ui.activity.Login;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -38,7 +42,7 @@ import rx.Subscriber;
 /**
  * Created by Administrator on 2016/7/18.
  */
-public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> implements LoginContract.View ,ProgressCancelListener {
+public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> implements LoginContract.View, ProgressCancelListener {
 
 
     @Bind(R.id.btn_login)
@@ -61,6 +65,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     public SharedPreferenceUtil mSharedPreferenceUtil = null;
     private String currentVersionName;
 
+//    private int REQUEST_CODE_WRITE_SETTINGS = 2;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -70,8 +76,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     public void initView() {
 
         // sp  记住密码
-
-
 
 
         mSharedPreferenceUtil = SharedPreferenceUtil.getInstance();
@@ -134,12 +138,31 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     @Override
     public void doInitView() {
         checkUpdate();
+//        if (Build.VERSION.SDK_INT >= 23)
+//            requestWriteSettings();
     }
 
     @Override
     public void didInitView() {
 
     }
+
+    private static final int REQUEST_CODE_WRITE_SETTINGS = 1;
+    private void requestWriteSettings() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivityForResult(intent, REQUEST_CODE_WRITE_SETTINGS );
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE_WRITE_SETTINGS) {
+//            if (Settings.System.canWrite(this)) {
+//                Log.i(C.TAG, "onActivityResult write settings granted" );
+//            }
+//        }
+//    }
 
     private void checkUpdate() {
         currentVersionName = Util.getVersion(this);
@@ -155,7 +178,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
                     } else {
 
                     }
-                    if(currentVersionCode < mUpdateData.getVersioncode() ){
+                    if (currentVersionCode < mUpdateData.getVersioncode()) {
                         HotFixManger.updatePatchJar(LoginActivity.this);
                     }
                 }

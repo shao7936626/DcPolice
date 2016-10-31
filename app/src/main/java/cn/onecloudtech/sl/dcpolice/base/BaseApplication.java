@@ -2,7 +2,12 @@ package cn.onecloudtech.sl.dcpolice.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 
 import com.dodola.rocoofix.RocooFix;
 import com.iflytek.cloud.SpeechConstant;
@@ -57,6 +62,8 @@ public class BaseApplication extends Application {
         JPushInterface.setDebugMode(true);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5806d051");
+
+
 //        checkUpdate();
 
         // 初始化 retrofit
@@ -79,21 +86,26 @@ public class BaseApplication extends Application {
         }
     }
 
+
+
+
+
+
     private void checkUpdate() {
         currentVersionName = Util.getVersion(this);
         currentVersionCode = Util.getVersionCode(this);
-        ToastUtil.showLong("当前版本是"+currentVersionName);
+        ToastUtil.showLong("当前版本是" + currentVersionName);
         getFetchVersionOnNext = new SubscriberOnNextListener<UpdateData>() {
             @Override
             public void onNext(UpdateData mUpdateData) {
                 if (mUpdateData != null) {
                     System.out.println(C.TAG + "version from server is " + mUpdateData.getVersionname() + mUpdateData.getVersionshort());
                     if (currentVersionName.compareTo(mUpdateData.getVersionshort()) < 0) {
-                        CheckVersion.showUpdateDialog(mUpdateData,mAppContext);
+                        CheckVersion.showUpdateDialog(mUpdateData, mAppContext);
                     } else {
 
                     }
-                    if(currentVersionCode < mUpdateData.getVersioncode() ){
+                    if (currentVersionCode < mUpdateData.getVersioncode()) {
                         HotFixManger.updatePatchJar(mAppContext);
                     }
                 }

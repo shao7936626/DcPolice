@@ -40,6 +40,9 @@ import cn.onecloudtech.sl.dcpolice.ui.activity.PersonelInfoEntyActivity;
 import cn.onecloudtech.sl.dcpolice.utils.ButtonUtil;
 import cn.onecloudtech.sl.dcpolice.utils.HashMapUtil;
 import cn.onecloudtech.sl.dcpolice.utils.ToastUtil;
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
 import cn.qqtheme.framework.picker.AddressPicker;
 import cn.qqtheme.framework.util.ConvertUtils;
 import okhttp3.MediaType;
@@ -291,15 +294,15 @@ public class RentalHousingActivity extends BaseActivity<RentalHousingPresenter, 
 
     public void onLinkagePicker() {
         try {
-            ArrayList<AddressPicker.Province> data = new ArrayList<AddressPicker.Province>();
+            ArrayList<Province> data = new ArrayList<Province>();
             String json = ConvertUtils.toString(getAssets().open("city3.json"));
-            data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
+            data.addAll(JSON.parseArray(json, Province.class));
             AddressPicker picker = new AddressPicker(this, data);
             picker.setHideProvince(true);
 //            picker.setSelectedItem("贵州", "贵阳", "花溪");
             picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
                 @Override
-                public void onAddressPicked(AddressPicker.Province province, AddressPicker.City city, AddressPicker.County county) {
+                public void onAddressPicked(Province province, City city, County county) {
 //                    if (county == null) {
 //                        ToastUtil.showShort("province : " + province + ", city: " + city);
 //                    } else {
